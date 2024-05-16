@@ -11,5 +11,5 @@ private:
 	sf::Line line;
 	//or
 	sf::RectangleShape line1;
-	sf::vector2f m_startPoint;
+	sf::Vector2f m_startPoint;
 };
