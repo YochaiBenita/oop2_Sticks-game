@@ -18,6 +18,8 @@ int main()
 		auto r = sf::RectangleShape (l.getGlobalBounds().getSize());
 		r.setPosition(l.getGlobalBounds().getPosition());
 		r.setOutlineColor(sf::Color::Yellow);
+		r.setOutlineThickness(5);
+		r.setFillColor(sf::Color::Transparent);
 
 		auto l2 = sf::RectangleShape(sf::Vector2f(200, 20));
 		l2.setPosition(sf::Vector2f(150, 128.867));
