@@ -1,15 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include <list>
 
 class Stick
 {
 public:
+	Stick();
+
 
 private:
-	int m_blockedBy = 0;
-	std::vector<Stick*> m_blocking;
-	sf::Line line;
-	//or
+	std::list<Stick*> m_blocking;
+	std::list<Stick*> mblockedBy;
+	
 	sf::RectangleShape line1;
 	sf::Vector2f m_startPoint;
 };
