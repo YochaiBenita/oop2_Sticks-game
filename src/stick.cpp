@@ -1,5 +1,6 @@
 #include "Stick.h"
 #include <cmath>
+#include <algorithm> 
 
 Stick::Stick() //:m_line()
 {
@@ -33,9 +34,13 @@ Stick::Stick() //:m_line()
 void Stick::findAllIntersections(const std::list<Stick>& list,
 	std::list<Stick>::iterator other)
 {
+	sf::Vector2f endPointLine = getEndPoint(this->m_line);//test
+
 	for (; other!=list.end(); ++other) //for on all obj from other to end
 	{
-		if (intersects(this->m_line, other->m_line))//algo from the yechezkel
+		sf::Vector2f endPointOther = getEndPoint(other->m_line);//test
+
+		if (intersects(this->m_line.getPosition(), other->m_line.getPosition(), endPointLine, endPointOther))//algo from the yechezkel
 		{
 			m_blocking.push_back(&(*other));
 			other->m_blockedBy.push_back(this);
@@ -44,12 +49,45 @@ void Stick::findAllIntersections(const std::list<Stick>& list,
 	
 }
 
-bool Stick::intersects(const sf::RectangleShape&, const sf::RectangleShape&) const
+bool Stick::intersects(const sf::Vector2f& p1, const sf::Vector2f& q1, const sf::Vector2f& p2, const sf::Vector2f& q2) const
 {
-	//algo of the seint yechezkel
-	getEndPoint(other->m_line);
-	return false;
+	// Find the four orientations needed for general and 
+	   // special cases 
+	int o1 = orientation(p1, q1, p2);
+	int o2 = orientation(p1, q1, q2);
+	int o3 = orientation(p2, q2, p1);
+	int o4 = orientation(p2, q2, q1);
+
+	// General case 
+	if (o1 != o2 && o3 != o4)
+		return true;
+
+	// Special Cases 
+	// p1, q1 and p2 are collinear and p2 lies on segment p1q1 
+	if (o1 == 0 && onSegment(p1, p2, q1)) return true;
+
+	// p1, q1 and q2 are collinear and q2 lies on segment p1q1 
+	if (o2 == 0 && onSegment(p1, q2, q1)) return true;
+
+	// p2, q2 and p1 are collinear and p1 lies on segment p2q2 
+	if (o3 == 0 && onSegment(p2, p1, q2)) return true;
+
+	// p2, q2 and q1 are collinear and q1 lies on segment p2q2 
+	if (o4 == 0 && onSegment(p2, q1, q2)) return true;
+
+	return false; // Doesn't fall in any of the above cases 
 }
+
+
+
+//bool Stick::intersects(const sf::RectangleShape& line, const sf::RectangleShape& other) const
+//{
+//	//algo of the seint yechezkel
+//	/*sf::Vector2f endPointLine = getEndPoint(line);
+//	sf::Vector2f endPointOther = getEndPoint(other);*/
+//
+//	return false;
+//}
 
 sf::Vector2f Stick::getEndPoint(const sf::RectangleShape& obj) const
 {
@@ -58,6 +96,22 @@ sf::Vector2f Stick::getEndPoint(const sf::RectangleShape& obj) const
 	float y = obj.getSize().x * std::sin(obj.getRotation());
 	y += obj.getPosition().y;
 	return sf::Vector2f(x,y);
+}
+
+int Stick::orientation(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Vector2f& r) const
+{
+	int val = (q.y - p.y) * (r.x - q.x) -
+		(q.x - p.x) * (r.y - q.y);
+
+	if (val == 0) return 0;  // collinear 
+
+	return (val > 0) ? 1 : 2; // clock or counterclock wise 
+}
+
+bool Stick::onSegment(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Vector2f& r) const
+{
+	return (q.x <= std::max(p.x, r.x) && q.x >= std::min(p.x, r.x) &&
+		q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y));
 }
 
 bool Stick::isAccessible() const

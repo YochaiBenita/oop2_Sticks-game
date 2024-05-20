@@ -18,8 +18,10 @@ class Stick
 public:
 	Stick();
 	void findAllIntersections(const std::list<Stick>&,std::list<Stick>::iterator);
-	bool intersects(const sf::RectangleShape&, const sf::RectangleShape&) const;
+	bool intersects(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	sf::Vector2f getEndPoint(const sf::RectangleShape&) const;
+	int orientation(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
+	bool onSegment(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	bool isAccessible() const;
 	int getScore() const;
 	//void blockedBy(std::list<Stick>::iterator);
