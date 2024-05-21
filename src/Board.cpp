@@ -26,3 +26,13 @@ Board::Board()
 		}
 	}
 }
+
+bool Board::play()
+{
+	return false;
+}
+
+bool Board::to_exit()
+{
+	return false;
+}
