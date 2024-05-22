@@ -52,7 +52,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 	{
 		if (stick->handleClick())
 		{
-			//revome from accsseible
+			removeAccessible(stick);
 			m_sticksList.remove(*stick);
 		}
 		else
@@ -71,6 +71,19 @@ void Board::draw(sf::RenderWindow& m_wind) const
 bool Board::finished() const
 {
 	return m_sticksList.empty();
+}
+
+void Board::removeAccessible(const std::list<Stick>::const_iterator stick)
+{
+	auto range = m_accessible.equal_range(stick->getScore());
+	for (auto it = range.first; it != range.second; ++it) 
+	{
+		if (it->second == &(*stick)) 
+		{
+			m_accessible.erase(it);
+			break; 
+		}
+	}
 }
 
 
