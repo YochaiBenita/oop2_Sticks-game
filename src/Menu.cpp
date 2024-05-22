@@ -1,9 +1,21 @@
 #include "Menu.h"
 #include <iostream>
+//#include <exception>
 
 Menu::Menu()
 {
+	m_background.setTexture(*Resources::getInstance().getBackground(0));
+	m_controller = nullptr;
 
+	for (int i = 0; i < NUM_OF_BUTTONS; i++)
+	{
+		m_button[i].setTexture(*Resources::getInstance().getTextureButtons(i));
+		m_button[i].setPosition(sf::Vector2f(250, 100 * (i + 1)));
+	}
+
+	//m_music.openFromFile("game music.ogg");
+	//m_music.setVolume(MUSIC_VOLUME);
+	//m_music.setLoop(true);
 }
 
 void Menu::show_menu()
@@ -46,9 +58,9 @@ void Menu::show_menu()
 					{
 						m_controller = &Controller("Stics");
 					}
-					catch (std::exeption exp)
+					catch (std::exception &exp)
 					{
-						std::cout << exp.what() << '\n';
+						std::cout << exp.what() << '\n';//לממש עם ספרייט
 						m_controller = &Controller();
 					}
 					m_controller->run(m_wind);
