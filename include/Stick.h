@@ -24,7 +24,7 @@ public:
 	bool handleClick();
 	void remove_blocking(Stick*);
 	void glow(bool);
-	std::list<Stick*> getBlockingList()const;
+	std::list<Stick*> getBlockedByList()const;
 
 	bool intersects(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	//bool intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const;

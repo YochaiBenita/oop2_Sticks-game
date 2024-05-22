@@ -57,7 +57,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		}
 		else
 		{
-			m_controller->glow(stick->getBlockingList().begin(), stick->getBlockingList().end());
+			m_controller->glow(stick->getBlockedByList().begin(), stick->getBlockedByList().end());
 		}
 	}
 }
