@@ -21,25 +21,47 @@ Board::Board()
 	while (stick != m_sticksList.end())
 	{
 		stick = std::find_if(stick, m_sticksList.end(), [](std::list<Stick>::iterator i) {return i->isAccessible(); });
-		m_accessible.insert({ stick->getScore(), &(*stick) });
-		stick++;
+		if (stick != m_sticksList.end())
+		{
+			m_accessible.insert({ stick->getScore(), &(*stick) });
+			stick++;
+		}
 	}
-
-	//for (int i = 0; i < x; i++)
-	//{
-	//	if (stick->isAccessible())
-	//	{
-	//		m_accessible.insert({ stick->getScore(), &(*stick) });
-	//	}
-	//}
 }
 
-bool Board::play()
+Board::Board(std::string)
 {
-	return false;
+	//reading from file end throwing exeption
 }
 
-bool Board::to_exit()
+void Board::play(sf::RenderWindow& m_wind)
 {
-	return false;
+	auto event = sf::Event();
+
+	while (m_wind.pollEvent(event)) {
+		if (event.type == sf::Event::Closed)
+		{
+			m_wind.close();
+			exit(EXIT_FAILURE);
+		}
+		if (event.type == sf::Event::MouseButtonReleased)
+		{
+			auto mousePosition = m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+			auto stick = std::find_if(m_sticksList.begin(), m_sticksList.end(), [mousePosition](auto stick) {return stick.isPressed(mousePosition); });
+			if (stick != m_sticksList.end()) {
+				stick->handleClick();
+			}
+			//----------------------------
+		}
+
+	}
 }
+
+
+void Board::draw(sf::RenderWindow& m_wind) const
+{
+	std::for_each(m_sticksList.rbegin(), m_sticksList.rend(), [&m_wind](auto stick) {m_wind.draw(stick.getRect()); });
+
+}
+
+

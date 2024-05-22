@@ -119,6 +119,15 @@ bool Stick::onSegment(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Ve
 		q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y));
 }
 
+sf::RectangleShape Stick::getRect() const
+{
+	return m_line;
+}
+
+void Stick::handleClick()
+{
+}
+
 bool Stick::isAccessible() const
 {
 	return m_blockedBy.size()==0;
@@ -127,5 +136,11 @@ bool Stick::isAccessible() const
 int Stick::getScore() const
 {
 	return m_score;
+}
+
+bool Stick::isPressed(const sf::Vector2f mousePosition) const
+{
+	const auto transformedPoint = m_line.getTransform().getInverse().transformPoint(mousePosition);
+	return m_line.getLocalBounds().contains(transformedPoint);
 }
 

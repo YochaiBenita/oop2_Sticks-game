@@ -6,8 +6,6 @@ const int WIDTH = 20;
 const int MIN_LEN = 150;
 const int BORDER = 25;
 
-const sf::Vector2f BOAED_SIZE(600, 600);
-
 const std::pair <sf::Color, int> COLOR_AND_SCORE[] = {
 	{sf::Color::Red, 100},
 	{sf::Color::Cyan, 150},
@@ -26,6 +24,9 @@ public:
 	bool onSegment(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	bool isAccessible() const;
 	int getScore() const;
+	sf::RectangleShape getRect()const;
+	bool isPressed(const sf::Vector2f)const;
+	void handleClick();
 	//void blockedBy(std::list<Stick>::iterator);
 
 private:
