@@ -98,6 +98,11 @@ sf::Vector2f Stick::getEndPoint(const sf::RectangleShape& obj) const
 	return sf::Vector2f(x,y);
 }
 
+//bool Stick::intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const
+//{
+//	return false;
+//}
+
 int Stick::orientation(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Vector2f& r) const
 {
 	int val = (q.y - p.y) * (r.x - q.x) -

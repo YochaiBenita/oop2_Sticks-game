@@ -18,13 +18,20 @@ Board::Board()
 	//checking all intersections
 	stick = m_sticksList.begin();
 
-	for (int i = 0; i < x; i++)
+	while (stick != m_sticksList.end())
 	{
-		if (stick->isAccessible())
-		{
-			m_accessible.insert({ stick->getScore(), &(*stick) });
-		}
+		stick = std::find_if(stick, m_sticksList.end(), [](std::list<Stick>::iterator i) {return i->isAccessible(); });
+		m_accessible.insert({ stick->getScore(), &(*stick) });
+		stick++;
 	}
+
+	//for (int i = 0; i < x; i++)
+	//{
+	//	if (stick->isAccessible())
+	//	{
+	//		m_accessible.insert({ stick->getScore(), &(*stick) });
+	//	}
+	//}
 }
 
 bool Board::play()

@@ -20,6 +20,7 @@ public:
 	Stick();
 	void findAllIntersections(const std::list<Stick>&,std::list<Stick>::iterator);
 	bool intersects(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
+	//bool intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const;
 	sf::Vector2f getEndPoint(const sf::RectangleShape&) const;
 	int orientation(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	bool onSegment(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
