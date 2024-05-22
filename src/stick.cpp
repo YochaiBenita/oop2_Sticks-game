@@ -79,7 +79,7 @@ bool Stick::handleClick()
 	}
 	else
 	{
-		(*m_blocking.begin())->glow(true);
+		(*m_blockedBy.begin())->glow(true);
 		return false;
 	}
 }
@@ -98,9 +98,9 @@ void Stick::glow(bool val)
 	m_line.setOutlineColor((val) ? sf::Color::Green : sf::Color::Black);
 }
 
-std::list<Stick*> Stick::getBlockingList() const
+std::list<Stick*> Stick::getBlockedByList() const
 {
-	return m_blocking;
+	return m_blockedBy;
 }
 
 
