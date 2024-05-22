@@ -24,7 +24,7 @@ Stick::Stick() //:m_line()
 
 	int y;
 
-	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + BORDER;
+	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + 300;
 	y = (rand() % (int(BOARD_SIZE.y) - 2 * BORDER)) + BORDER;
 	m_line.setPosition(sf::Vector2f(x, y));
 
@@ -175,3 +175,7 @@ bool Stick::onSegment(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Ve
 		q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y));
 }
 
+bool operator==(const Stick& first, const Stick& second)
+{
+	return (&first)==(&second);
+}

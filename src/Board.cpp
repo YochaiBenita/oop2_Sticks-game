@@ -53,7 +53,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		if (stick->handleClick())
 		{
 			//revome from accsseible
-			//m_sticksList.remove(*stick);
+			m_sticksList.remove(*stick);
 		}
 		else
 		{

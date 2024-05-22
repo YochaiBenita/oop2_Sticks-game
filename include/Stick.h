@@ -4,7 +4,7 @@
 
 const int WIDTH = 20;
 const int MIN_LEN = 150;
-const int BORDER = 25;
+const int BORDER = 20;
 
 const std::pair <sf::Color, int> COLOR_AND_SCORE[] = {
 	{sf::Color::Red, 100},
@@ -42,3 +42,5 @@ private:
 	int m_score;
 	sf::Vector2f m_startPoint;
 };
+
+bool operator == (const Stick&, const Stick&);
