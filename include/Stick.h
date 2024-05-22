@@ -17,16 +17,21 @@ class Stick
 public:
 	Stick();
 	void findAllIntersections(const std::list<Stick>&,std::list<Stick>::iterator);
+	bool isAccessible() const;
+	int getScore() const;
+	sf::RectangleShape getRect()const;
+	bool isPressed(const sf::Vector2f)const;
+	bool handleClick();
+	void remove_blocking(Stick*);
+	void glow(bool);
+	std::list<Stick*> getBlockingList()const;
+
 	bool intersects(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	//bool intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const;
 	sf::Vector2f getEndPoint(const sf::RectangleShape&) const;
 	int orientation(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	bool onSegment(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
-	bool isAccessible() const;
-	int getScore() const;
-	sf::RectangleShape getRect()const;
-	bool isPressed(const sf::Vector2f)const;
-	void handleClick();
+	
 	//void blockedBy(std::list<Stick>::iterator);
 
 private:

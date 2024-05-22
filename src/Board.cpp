@@ -1,6 +1,9 @@
 #include "Board.h"
+#include <iostream>
+#include <fstream>
+#include "Controller.h"
 
-Board::Board()
+Board::Board(Controller* con) : m_controller(con)
 {
 	int x = rand() % 30 + 20;//num of sticks betwean 20-49
 	for (int i = 0; i < x; i++) 
@@ -29,39 +32,43 @@ Board::Board()
 	}
 }
 
-Board::Board(std::string)
+Board::Board(Controller* con, const std::string fileName) : m_controller(con)
 {
-	//reading from file end throwing exeption
+	auto file = std::ifstream("fileName");
+	if (!file.is_open())
+	{
+		throw std::exception();
+	}
+	//using iss for reading the data
+
 }
 
-void Board::play(sf::RenderWindow& m_wind)
+void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 {
-	auto event = sf::Event();
-
-	while (m_wind.pollEvent(event)) {
-		if (event.type == sf::Event::Closed)
+	auto stick = std::find_if(m_sticksList.begin(), m_sticksList.end(), [mousePosition](auto stick) {return stick.isPressed(mousePosition); });
+	if (stick != m_sticksList.end()) 
+	{
+		if (stick->handleClick())
 		{
-			m_wind.close();
-			exit(EXIT_FAILURE);
+			//revome from accsseible
+			m_sticksList.remove(*stick);
 		}
-		if (event.type == sf::Event::MouseButtonReleased)
+		else
 		{
-			auto mousePosition = m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			auto stick = std::find_if(m_sticksList.begin(), m_sticksList.end(), [mousePosition](auto stick) {return stick.isPressed(mousePosition); });
-			if (stick != m_sticksList.end()) {
-				stick->handleClick();
-			}
-			//----------------------------
+			m_controller->glow(stick->getBlockingList().begin(), stick->getBlockingList().end());
 		}
-
 	}
 }
-
 
 void Board::draw(sf::RenderWindow& m_wind) const
 {
 	std::for_each(m_sticksList.rbegin(), m_sticksList.rend(), [&m_wind](auto stick) {m_wind.draw(stick.getRect()); });
 
+}
+
+bool Board::finished() const
+{
+	return m_sticksList.empty();
 }
 
 

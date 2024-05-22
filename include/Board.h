@@ -5,18 +5,22 @@
 #include "Stick.h"
 #include <string>
 
+class Controller;
+
 class Board
 {
 public:
-	Board();
-	Board(std::string);
+	Board(Controller*);
+	Board(Controller* , const std::string);
 	bool intersect();
-	void play(sf::RenderWindow&);
-	bool to_exit();
+	void play(sf::RenderWindow&, const sf::Vector2f&);
+	//bool to_exit();
 	void draw(sf::RenderWindow&)const;
+	bool finished()const;
 
 private:
 	std::list<Stick> m_sticksList;
 	std::multimap<int, Stick*> m_accessible;
 
+	Controller* m_controller;
 };

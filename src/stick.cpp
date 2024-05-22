@@ -46,9 +46,64 @@ void Stick::findAllIntersections(const std::list<Stick>& list,
 			other->m_blockedBy.push_back(this);
 		}
 	}
-	
 }
 
+bool Stick::isAccessible() const
+{
+	return m_blockedBy.empty();
+}
+
+int Stick::getScore() const
+{
+	return m_score;
+}
+
+sf::RectangleShape Stick::getRect() const
+{
+	return m_line;
+}
+
+bool Stick::isPressed(const sf::Vector2f mousePosition) const
+{
+	const auto transformedPoint = m_line.getTransform().getInverse().transformPoint(mousePosition);
+	return m_line.getLocalBounds().contains(transformedPoint);
+}
+
+bool Stick::handleClick()
+{
+	if (m_blockedBy.empty())
+	{
+		std::for_each(m_blocking.begin(), m_blocking.end(), [this](auto blocked) {blocked->remove_blocking(this); });
+		return true;
+	}
+	else
+	{
+		(*m_blocking.begin())->glow(true);
+		return false;
+	}
+}
+
+void Stick::remove_blocking(Stick* stick)
+{
+	m_blockedBy.remove(stick);
+	if (m_blocking.empty())
+	{
+		//add to accessible
+	}
+}
+
+void Stick::glow(bool val)
+{
+	m_line.setOutlineColor((val) ? sf::Color::Green : sf::Color::Black);
+}
+
+std::list<Stick*> Stick::getBlockingList() const
+{
+	return m_blocking;
+}
+
+
+//-----------------------------
 bool Stick::intersects(const sf::Vector2f& p1, const sf::Vector2f& q1, const sf::Vector2f& p2, const sf::Vector2f& q2) const
 {
 	// Find the four orientations needed for general and 
@@ -117,30 +172,5 @@ bool Stick::onSegment(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Ve
 {
 	return (q.x <= std::max(p.x, r.x) && q.x >= std::min(p.x, r.x) &&
 		q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y));
-}
-
-sf::RectangleShape Stick::getRect() const
-{
-	return m_line;
-}
-
-void Stick::handleClick()
-{
-}
-
-bool Stick::isAccessible() const
-{
-	return m_blockedBy.size()==0;
-}
-
-int Stick::getScore() const
-{
-	return m_score;
-}
-
-bool Stick::isPressed(const sf::Vector2f mousePosition) const
-{
-	const auto transformedPoint = m_line.getTransform().getInverse().transformPoint(mousePosition);
-	return m_line.getLocalBounds().contains(transformedPoint);
 }
 
