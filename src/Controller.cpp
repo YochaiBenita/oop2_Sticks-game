@@ -4,7 +4,7 @@ Controller::Controller(Board* b)//יקבל לוח לאחר שהמשתמש יבחר אם להמשיך את המשחק 
 {
 	if (b == nullptr)
 	{
-		m_board = new Board();
+		m_board = &Board();
 	}
 	else //טיפול בחריגה של קריאת קובץ
 	{
@@ -14,8 +14,8 @@ Controller::Controller(Board* b)//יקבל לוח לאחר שהמשתמש יבחר אם להמשיך את המשחק 
 
 Controller::~Controller()
 {
-	if (m_board != nullptr)
-		delete m_board;
+	//if (m_board != nullptr)
+	//	delete m_board;
 }
 
 void Controller::run(sf::RenderWindow& m_wind) 
