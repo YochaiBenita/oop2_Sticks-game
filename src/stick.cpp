@@ -13,7 +13,7 @@ Stick::Stick() //:m_line()
 	m_line.setOrigin(sf::Vector2f(0, WIDTH / 2));
 
 	m_line.setFillColor(COLOR_AND_SCORE[x].first);
-	m_line.setOutlineThickness(1);
+	m_line.setOutlineThickness(3);
 	m_line.setOutlineColor(sf::Color::Black);
 
 	x = (rand() % 5) * 10;
@@ -33,18 +33,21 @@ Stick::Stick() //:m_line()
 }
 
 void Stick::findAllIntersections(const std::list<Stick>& list,
-	std::list<Stick>::iterator other)
+	std::list<Stick>::iterator obj)
 {
-	sf::Vector2f endPointLine = getEndPoint(this->m_line);//test
+	sf::Vector2f endPointLine = getEndPoint(m_line);//test
 
-	for (; other!=list.end(); ++other) //for on all obj from other to end
+	//auto obj = std::find(list.begin(), list.end(), this);
+	//obj++;
+
+	for (; obj != list.end(); ++obj) //for on all obj from other to end
 	{
-		sf::Vector2f endPointOther = getEndPoint(other->m_line);//test
+		sf::Vector2f endPointOther = getEndPoint(obj->getRect());//test
 
-		if (intersects(this->m_line.getPosition(), other->m_line.getPosition(), endPointLine, endPointOther))//algo from the yechezkel
+		if (intersected(m_line.getPosition(), endPointLine, obj->getRect().getPosition(), endPointOther))//algo from the yechezkel
 		{
-			m_blocking.push_back(&(*other));
-			other->m_blockedBy.push_back(this);
+			m_blocking.push_back(&(*obj));
+			obj->m_blockedBy.push_back(this);
 		}
 	}
 }
@@ -105,7 +108,7 @@ std::list<Stick*> Stick::getBlockedByList() const
 
 
 //-----------------------------
-bool Stick::intersects(const sf::Vector2f& p1, const sf::Vector2f& q1, const sf::Vector2f& p2, const sf::Vector2f& q2) const
+bool Stick::intersected(const sf::Vector2f& p1, const sf::Vector2f& q1, const sf::Vector2f& p2, const sf::Vector2f& q2) const
 {
 	// Find the four orientations needed for general and 
 	   // special cases 
@@ -147,9 +150,9 @@ bool Stick::intersects(const sf::Vector2f& p1, const sf::Vector2f& q1, const sf:
 
 sf::Vector2f Stick::getEndPoint(const sf::RectangleShape& obj) const
 {
-	float x = obj.getSize().x * std::cos(obj.getRotation());
+	float x = obj.getOrigin().x + obj.getSize().x * std::cos(PI * obj.getRotation() / 180);
 	x += obj.getPosition().x;
-	float y = obj.getSize().x * std::sin(obj.getRotation());
+	float y = obj.getOrigin().y + obj.getSize().x * std::sin(PI * obj.getRotation() / 180);
 	y += obj.getPosition().y;
 	return sf::Vector2f(x,y);
 }

@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include <iostream>
 
 Controller::Controller(): m_board(this)
 {
@@ -40,15 +41,22 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 		if (m_blinking)
 		{
+			std::cout << "blinking\n";
 			sf::sleep(sf::seconds(0.7));
+			std::cout << "sleep 0.7\n";
 			(*m_glowingCurr)->glow(false);
+			std::cout << "glow off\n";
 			m_glowingCurr++;
+			std::cout << "it ++\n";
 			if (m_glowingCurr == m_glowingEnd)
 			{
+				std::cout << "inside if end\n";
 				m_blinking = false;
 				continue;
 			}
+			std::cout << "not end\n";
 			(*m_glowingCurr)->glow(true);
+			std::cout << "glow on\n";
 		}
 		else if (auto event = sf::Event(); m_wind.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)

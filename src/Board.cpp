@@ -13,11 +13,18 @@ Board::Board(Controller* con) : m_controller(con)
 		m_sticksList.push_front(Stick());
 	}
 
+	//for (auto stick : m_sticksList)
+	//{
+	//	stick.findAllIntersections(m_sticksList);
+	//}
+
 	auto stick = m_sticksList.begin();
+
+	//std::for_each(stick, m_sticksList.end(), [](auto stick) {stick.findAllIntersections(); });
 
 	for (int i = 0; i < x; i++)
 	{
-		stick->findAllIntersections(m_sticksList ,stick++);
+		stick->findAllIntersections(m_sticksList ,++stick);
 	}
 
 	//checking all intersections

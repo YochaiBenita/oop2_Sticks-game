@@ -5,6 +5,7 @@
 const int WIDTH = 20;
 const int MIN_LEN = 150;
 const int BORDER = 20;
+const long double PI = 3.14159265358979323846;
 
 const std::pair <sf::Color, int> COLOR_AND_SCORE[] = {
 	{sf::Color::Red, 100},
@@ -16,7 +17,8 @@ class Stick
 {
 public:
 	Stick();
-	void findAllIntersections(const std::list<Stick>&,std::list<Stick>::iterator);
+	//void findAllIntersections(const std::list<Stick*>& list);
+	void findAllIntersections(const std::list<Stick>&, std::list<Stick>::iterator);
 	bool isAccessible() const;
 	int getScore() const;
 	sf::RectangleShape getRect()const;
@@ -26,7 +28,7 @@ public:
 	void glow(bool);
 	std::list<Stick*> getBlockedByList()const;
 
-	bool intersects(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
+	bool intersected(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	//bool intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const;
 	sf::Vector2f getEndPoint(const sf::RectangleShape&) const;
 	int orientation(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
