@@ -2,10 +2,10 @@
 #include <exception>
 
 
-class InvalidContentFile :public std::exception
+class InvalidContentFileException :public std::exception
 {
 public:
-	InvalidContentFile() {};
+	InvalidContentFileException() {};
 	const char* what() const noexcept {
 		return "The content is invalid\n"; //נדפיס שגיאה יפה יותר
 	}

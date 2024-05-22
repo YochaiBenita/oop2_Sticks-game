@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include "Controller.h"
+#include "InvalidFileException.h"
+#include "InvalidContentFileException.h"
 
 Board::Board(Controller* con) : m_controller(con)
 {
@@ -23,7 +25,7 @@ Board::Board(Controller* con) : m_controller(con)
 
 	while (stick != m_sticksList.end())
 	{
-		stick = std::find_if(stick, m_sticksList.end(), [](std::list<Stick>::iterator i) {return i->isAccessible(); });
+		stick = std::find_if(stick, m_sticksList.end(), [](auto stick) {return stick.isAccessible(); });
 		if (stick != m_sticksList.end())
 		{
 			m_accessible.insert({ stick->getScore(), &(*stick) });
@@ -34,10 +36,10 @@ Board::Board(Controller* con) : m_controller(con)
 
 Board::Board(Controller* con, const std::string fileName) : m_controller(con)
 {
-	auto file = std::ifstream("fileName");
+	auto file = std::ifstream(fileName);
 	if (!file.is_open())
 	{
-		throw std::exception();
+		throw InvalidFileException();
 	}
 	//using iss for reading the data
 
