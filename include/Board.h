@@ -23,4 +23,6 @@ private:
 	std::multimap<int, Stick*> m_accessible;
 
 	Controller* m_controller;
+
+	void removeAccessible(const std::list<Stick>::const_iterator);
 };
