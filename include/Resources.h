@@ -8,9 +8,9 @@ const int NUM_OF_BACKGROUNDS = 3;
 const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 const int NUM_OF_DATA_TEXTURES = 2; //for time and score
 
-const auto TOPLEFT = sf::Vector2f(100.f, 0.f);
+//const auto TOPLEFT = sf::Vector2f(100.f, 0.f);
 
-const int DELAY_TIME = 5;
+//const int DELAY_TIME = 5;
 
 
 class Resources 
@@ -18,12 +18,12 @@ class Resources
 public:
 	static Resources& getInstance();
 
-	sf::Texture* getTextureMs(int) const;
-	sf::Texture* getDataTexure(int) const;
-	sf::Texture* getBackground(int) const;
-	sf::Texture* getTextureButtons(int) const;
+	const sf::Texture* getTextureMs(int) const;
+	const sf::Texture* getDataTexure(int) const;
+	const sf::Texture* getBackground(int) const;
+	const sf::Texture* getTextureButtons(int) const;
 
-	sf::Font* getFont() const;
+	const sf::Font* getFont() const;
 
 private:
 	Resources();

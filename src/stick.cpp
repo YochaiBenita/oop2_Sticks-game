@@ -1,6 +1,7 @@
 #include "Stick.h"
 #include <cmath>
 #include <algorithm> 
+#include "Controller.h"
 
 Stick::Stick() //:m_line()
 {
@@ -23,8 +24,8 @@ Stick::Stick() //:m_line()
 
 	int y;
 
-	x = (rand() % (int(BOAED_SIZE.x) - 2 * BORDER)) + BORDER;
-	y = (rand() % (int(BOAED_SIZE.y) - 2 * BORDER)) + BORDER;
+	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + BORDER;
+	y = (rand() % (int(BOARD_SIZE.y) - 2 * BORDER)) + BORDER;
 	m_line.setPosition(sf::Vector2f(x, y));
 
 

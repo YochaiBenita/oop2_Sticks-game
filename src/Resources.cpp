@@ -38,27 +38,27 @@ Resources& Resources::getInstance()
 	return instance;
 }
 
-sf::Texture* Resources::getTextureMs(int index) const
+const sf::Texture* Resources::getTextureMs(int index) const
 {
 	return &(m_messagesTexures[index]);
 }
 
-sf::Texture* Resources::getDataTexure(int index) const
+const sf::Texture* Resources::getDataTexure(int index) const
 {
 	return &(m_dataTexures[index]);
 }
 
-sf::Texture* Resources::getBackground(int index) const
+const sf::Texture* Resources::getBackground(int index) const
 {
 	return &(m_backgroungs[index]);
 }
 
-sf::Texture* Resources::getTextureButtons(int index) const
+const sf::Texture* Resources::getTextureButtons(int index) const
 {
 	return &(m_buttonsTexures[index]);;
 }
 
-sf::Font* Resources::getFont() const
+const sf::Font* Resources::getFont() const
 {
 	return &m_font;
 }

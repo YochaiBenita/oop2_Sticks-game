@@ -23,7 +23,7 @@ Board::Board(Controller* con) : m_controller(con)
 
 	while (stick != m_sticksList.end())
 	{
-		stick = std::find_if(stick, m_sticksList.end(), [](std::list<Stick>::iterator i) {return i->isAccessible(); });
+		stick = std::find_if(stick, m_sticksList.end(), [](auto i) {return i.isAccessible(); });
 		if (stick != m_sticksList.end())
 		{
 			m_accessible.insert({ stick->getScore(), &(*stick) });
@@ -51,7 +51,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		if (stick->handleClick())
 		{
 			//revome from accsseible
-			m_sticksList.remove(*stick);
+			//m_sticksList.remove(*stick);
 		}
 		else
 		{

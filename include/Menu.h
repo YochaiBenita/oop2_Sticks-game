@@ -11,8 +11,8 @@ public:
 	void show_help();
 
 private:
-	sf::Sprite m_button[NUM_OF_BUTTONS];
-	sf::Sprite m_background;
+	sf::RectangleShape m_button[NUM_OF_BUTTONS];
+	sf::RectangleShape m_background;
 	sf::RenderWindow m_wind;
 	Controller* m_controller;
 
