@@ -64,7 +64,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		}
 		else
 		{
-			m_controller->glow(stick->getBlockedByList().begin(), stick->getBlockedByList().end());
+			std::cout << "cant lift stick, controller reset\n";
 		}
 	}
 }
