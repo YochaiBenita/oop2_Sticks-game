@@ -24,9 +24,11 @@ public:
 	sf::RectangleShape getRect()const;
 	bool isPressed(const sf::Vector2f)const;
 	bool handleClick();
-	void remove_blocking(Stick*);
+	void removeBlockedBy(Stick*);
 	void glow(bool);
-	std::list<Stick*> getBlockedByList()const;
+	//std::list<Stick*> getBlockedByList()const;
+	std::list<Stick*>::iterator getBlockedByBegin();
+	std::list<Stick*>::iterator getBlockedByEnd();
 
 	bool intersected(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&) const;
 	//bool intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const;

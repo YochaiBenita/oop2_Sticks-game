@@ -12,17 +12,20 @@ class Board
 public:
 	Board(Controller*);
 	Board(Controller* , const std::string);
+	~Board();
 	bool intersect();
 	void play(sf::RenderWindow&, const sf::Vector2f&);
 	//bool to_exit();
 	void draw(sf::RenderWindow&)const;
 	bool finished()const;
+	static void addToAccessible(Stick*);
+	void debug(sf::RenderWindow&);
 
 private:
 	std::list<Stick> m_sticksList;
-	std::multimap<int, Stick*> m_accessible;
+	static std::multimap<int, Stick*> m_accessible;
 
 	Controller* m_controller;
 
-	void removeAccessible(const std::list<Stick>::const_iterator);
+	void removeAccessible(Stick*);
 };

@@ -56,7 +56,7 @@ void Menu::show_menu()
 				case 0:
 					m_controller = new Controller();
 					m_controller->run(m_wind);
-					//m_controller->reset_controller();
+					delete m_controller;
 					break;
 				case 1:
 					try
@@ -69,7 +69,7 @@ void Menu::show_menu()
 						m_controller = new Controller();
 					}
 					m_controller->run(m_wind);
-					//m_controller->reset_controller();
+					delete m_controller;
 					break;
 				case 2:
 					show_help();

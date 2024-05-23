@@ -2,6 +2,8 @@
 #include <cmath>
 #include <algorithm> 
 #include "Controller.h"
+#include <iostream>
+#include "Board.h"
 
 Stick::Stick() //:m_line()
 {
@@ -77,7 +79,7 @@ bool Stick::handleClick()
 {
 	if (m_blockedBy.empty())
 	{
-		std::for_each(m_blocking.begin(), m_blocking.end(), [this](auto blocked) {blocked->remove_blocking(this); });
+		std::for_each(m_blocking.begin(), m_blocking.end(), [this](auto blocked) {blocked->removeBlockedBy(this); });
 		return true;
 	}
 	else
@@ -87,12 +89,12 @@ bool Stick::handleClick()
 	}
 }
 
-void Stick::remove_blocking(Stick* stick)
+void Stick::removeBlockedBy(Stick* stick)
 {
 	m_blockedBy.remove(stick);
-	if (m_blocking.empty())
+	if (m_blockedBy.empty())
 	{
-		//add to accessible
+		Board::addToAccessible(this);
 	}
 }
 
@@ -101,9 +103,14 @@ void Stick::glow(bool val)
 	m_line.setOutlineColor((val) ? sf::Color::Green : sf::Color::Black);
 }
 
-std::list<Stick*> Stick::getBlockedByList() const
+std::list<Stick*>::iterator Stick::getBlockedByBegin()
 {
-	return m_blockedBy;
+	return m_blockedBy.begin();
+}
+
+std::list<Stick*>::iterator Stick::getBlockedByEnd()
+{
+	return m_blockedBy.end();
 }
 
 

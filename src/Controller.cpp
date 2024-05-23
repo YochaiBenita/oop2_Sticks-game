@@ -39,26 +39,20 @@ void Controller::run(sf::RenderWindow& m_wind)
 		auto delta_time = m_clock.restart();
 		m_timer -= delta_time.asSeconds();
 
-		if (m_blinking)
-		{
-			std::cout << "blinking\n";
-			sf::sleep(sf::seconds(0.7));
-			std::cout << "sleep 0.7\n";
-			(*m_glowingCurr)->glow(false);
-			std::cout << "glow off\n";
-			m_glowingCurr++;
-			std::cout << "it ++\n";
-			if (m_glowingCurr == m_glowingEnd)
-			{
-				std::cout << "inside if end\n";
-				m_blinking = false;
-				continue;
-			}
-			std::cout << "not end\n";
-			(*m_glowingCurr)->glow(true);
-			std::cout << "glow on\n";
-		}
-		else if (auto event = sf::Event(); m_wind.pollEvent(event)) {
+		//if (m_blinking)
+		//{
+		//	sf::sleep(sf::seconds(0.7));
+		//	(*m_glowingCurr)->glow(false);
+		//	++m_glowingCurr;
+		//	if (m_glowingCurr == m_glowingEnd)
+		//	{
+		//		m_blinking = false;
+		//		continue;
+		//	}
+		//	(*m_glowingCurr)->glow(true);
+		//}
+		//else 
+			if (auto event = sf::Event(); m_wind.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 			{
 				m_wind.close();
@@ -79,6 +73,8 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 		m_board.draw(m_wind);
 
+		debug(m_wind);
+
 		m_wind.display();
 	}
 }
@@ -88,6 +84,11 @@ void Controller::glow(std::list<Stick*>::iterator curr, std::list<Stick*>::itera
 	m_blinking = true;
 	m_glowingCurr = curr;
 	m_glowingEnd = end;
+}
+
+void Controller::debug(sf::RenderWindow& m_wind)
+{
+	m_board.debug(m_wind);
 }
 
 

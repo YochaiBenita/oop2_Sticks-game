@@ -5,9 +5,11 @@
 #include "InvalidFileException.h"
 #include "InvalidContentFileException.h"
 
+std::multimap<int, Stick*> Board::m_accessible;
+
 Board::Board(Controller* con) : m_controller(con)
 {
-	int x = rand() % 30 + 20;//num of sticks betwean 20-49
+	int x = 10; //rand() % 30 + 20;//num of sticks betwean 20-49
 	for (int i = 0; i < x; i++) 
 	{
 		m_sticksList.push_front(Stick());
@@ -52,6 +54,11 @@ Board::Board(Controller* con, const std::string fileName) : m_controller(con)
 
 }
 
+Board::~Board()
+{
+	m_accessible.clear();
+}
+
 void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 {
 	auto stick = std::find_if(m_sticksList.begin(), m_sticksList.end(), [mousePosition](auto stick) {return stick.isPressed(mousePosition); });
@@ -59,14 +66,18 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 	{
 		if (stick->handleClick())
 		{
-			removeAccessible(stick);
+			removeAccessible(&(*stick));
 			m_sticksList.remove(*stick);
 		}
 		else
 		{
 			std::cout << "cant lift stick, controller reset\n";
+			m_controller->glow(stick->getBlockedByBegin(), stick->getBlockedByEnd());
+			std::cout << "cant lift stick, controller reset finished\n";
 		}
 	}
+	std::cout << "**Board::play m_accss.sise = " << m_accessible.size() << '\n';
+
 }
 
 void Board::draw(sf::RenderWindow& m_wind) const
@@ -80,17 +91,44 @@ bool Board::finished() const
 	return m_sticksList.empty();
 }
 
-void Board::removeAccessible(const std::list<Stick>::const_iterator stick)
+void Board::addToAccessible(Stick* stick)
 {
-	auto range = m_accessible.equal_range(stick->getScore());
-	for (auto it = range.first; it != range.second; ++it) 
+	m_accessible.insert({stick->getScore(), stick});
+}
+
+void Board::debug(sf::RenderWindow& m_wind)
+{
+	for (auto it = m_accessible.begin(); it != m_accessible.end(); it++)
 	{
-		if (it->second == &(*stick)) 
-		{
-			m_accessible.erase(it);
-			break; 
-		}
+		Stick& s = *(it->second);
+		s.glow(true);
+		m_wind.draw(s.getRect());
 	}
+}
+
+
+void Board::removeAccessible(Stick* stick)
+{
+	auto it = std::find_if(m_accessible.begin(), m_accessible.end(),
+		[stick](const auto pair) {return pair.second == stick; });
+	if (it != m_accessible.end())
+	{
+		it = m_accessible.erase(it);
+	}
+
+
+
+	//auto range = m_accessible.equal_range(stick->getScore());
+	//for (auto it = range.first; it != range.second; ++it)
+	//{
+	//	if (it->second == &(*stick))
+	//	{
+	//		std::cout << "erase access start " << m_accessible.size() << '\n';
+	//		m_accessible.erase(it);
+	//		std::cout << "erase access end " << m_accessible.size() << '\n';
+	//		break;
+	//	}
+	//}
 }
 
 
