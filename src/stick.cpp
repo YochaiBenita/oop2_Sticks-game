@@ -192,6 +192,8 @@ bool operator==(const Stick& first, const Stick& second)
 
 std::ostream& operator << (std::ostream& os, const Stick& obj)
 {
+	auto rect = obj.getRect();
+	
 	//printig stick to file
 
 	return os;
