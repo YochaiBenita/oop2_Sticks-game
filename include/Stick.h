@@ -1,6 +1,8 @@
 # pragma once
 #include <SFML/Graphics.hpp>
 #include <list>
+#include <iostream>
+#include <ostream>
 
 const int WIDTH = 20;
 const int MIN_LEN = 150;
@@ -48,3 +50,4 @@ private:
 };
 
 bool operator == (const Stick&, const Stick&);
+std::ostream& operator << (std::ostream&, const Stick&);
