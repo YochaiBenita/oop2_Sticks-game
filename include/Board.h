@@ -20,11 +20,14 @@ public:
 	bool finished()const;
 	static void addToAccessible(Stick*);
 	//void debug(sf::RenderWindow&);
+	int getCollectedSticks() const;
+	int getRemainedSticks() const;
+	int getAccessibleStics() const;
 
 private:
 	std::list<Stick> m_sticksList;
 	static std::multimap<int, Stick*> m_accessible;
-
+	int m_collected;
 	Controller* m_controller;
 
 	void removeAccessible(Stick*);

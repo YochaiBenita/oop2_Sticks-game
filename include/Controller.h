@@ -4,7 +4,7 @@
 #include <string>
 
 const sf::Vector2f BOARD_SIZE(600, 600);
-
+const int NUM_OF_DATA = 5;
 class Controller {
 public:
 	Controller();
@@ -17,6 +17,7 @@ public:
 private:
 	int m_score = 0;
 	Board m_board;
+	sf::Text m_data[NUM_OF_DATA];
 	sf::RectangleShape m_backgraund;
 	sf::Clock m_clock;
 	float m_timer = 120;
@@ -24,5 +25,7 @@ private:
 	bool m_blinking = false;
 	std::list<Stick*>::iterator m_glowingEnd;
 	std::list<Stick*>::iterator m_glowingCurr;
+
+	void draw_data(sf::RenderWindow&);
 
 };
