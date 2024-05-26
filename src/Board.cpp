@@ -9,7 +9,7 @@ std::multimap<int, Stick*> Board::m_accessible;
 
 Board::Board(Controller* con) : m_controller(con)
 {
-	int x = 10; //rand() % 30 + 20;//num of sticks betwean 20-49
+	int x = rand() % 30 + 20;//num of sticks betwean 20-49
 	for (int i = 0; i < x; i++) 
 	{
 		m_sticksList.push_front(Stick());
