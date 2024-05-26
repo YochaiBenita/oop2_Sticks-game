@@ -3,7 +3,8 @@
 #include <string>
 
 
-const int NUM_OF_BUTTONS = 4;
+const int NUM_OF_BUTTONS_MENU = 4;
+const int NUM_OF_BUTTONS_GAME = 2;
 const int NUM_OF_BACKGROUNDS = 2;
 const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 const int NUM_OF_DATA_TEXTURES = 2; //for time and score
@@ -33,7 +34,7 @@ private:
 	void readData(sf::Texture[], std::string[], int);
 	sf::Texture m_dataTexures[NUM_OF_DATA_TEXTURES];
 	sf::Texture m_backgroungs[NUM_OF_BACKGROUNDS];
-	sf::Texture m_buttonsTexures[NUM_OF_BUTTONS];
+	sf::Texture m_buttonsTexures[NUM_OF_BUTTONS_MENU];
 	sf::Texture m_messagesTexures[NUM_OF_MESSAGES];
 	sf::Font m_font;
 

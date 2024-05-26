@@ -10,7 +10,7 @@ Menu::Menu()
 	m_background.setSize(sf::Vector2f(900, 600));
 	m_controller = nullptr;
 
-	for (int i = 0; i < NUM_OF_BUTTONS; i++)
+	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
 	{
 		m_button[i].setSize(sf::Vector2f(300, 120));
 		m_button[i].setOrigin(sf::Vector2f(150, 50));
@@ -139,5 +139,26 @@ void Menu::show_help()
 				return;
 			}
 		}
+	}
+}
+
+
+int Menu::handle_click(sf::Vector2f v2f) const
+{
+	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
+	{
+		if (m_button[i].getGlobalBounds().contains(v2f))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void Menu::draw_buttons(sf::RenderWindow& wind) const
+{
+	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
+	{
+		wind.draw(m_button[i]);
 	}
 }

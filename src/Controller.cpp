@@ -1,10 +1,9 @@
 #include "Controller.h"
 #include <iostream>
 #include <string>
-#include "Resources.h"
+#include "Menu.h"
 
-
-Controller::Controller(): m_board(this)
+Controller::Controller() : m_board(this)
 {
 	for (int i = 0; i < NUM_OF_DATA; i++)
 	{
@@ -22,8 +21,13 @@ Controller::Controller(): m_board(this)
 	m_boardBackground.setPosition(sf::Vector2f(300, 0));
 	m_boardBackground.setOutlineColor(sf::Color::Black);
 	m_boardBackground.setOutlineThickness(5);
-	m_boardBackground.setFillColor(sf::Color::Color(255,255,255, 50));
+	m_boardBackground.setFillColor(sf::Color::Color(255, 255, 255, 50));
 
+	for (int i = 0; i < NUM_OF_BUTTONS_GAME; i++)
+	{
+		m_buttonsGame[i].setSize(sf::Vector2f(100, 100));
+		m_buttonsGame[i].setPosition(sf::Vector2f(30 + i*100, 540));
+	}
 }
 
 Controller::Controller(std::string fileName): m_board(this, fileName)
@@ -93,7 +97,16 @@ void Controller::run(sf::RenderWindow& m_wind)
 					m_board.play(m_wind, mousePosition);
 				}
 				else{
-					//check if one of the bottons was prassed
+					int option = handleClick(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+
+					switch (option)
+					{
+					case 0:
+						//hint
+						break;
+					case 1:
+						//save
+						break;
 				}
 			}
 		}
@@ -136,5 +149,15 @@ void Controller::addToScore(int score)
 //{
 //	m_board.debug(m_wind);
 //}
-
+int Controller::handleClick(sf::Vector2f v2f) const
+{
+	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
+	{
+		if (m_buttonsGame[i].getGlobalBounds().contains(v2f))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
 
