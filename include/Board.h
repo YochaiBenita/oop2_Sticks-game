@@ -19,7 +19,7 @@ public:
 	void draw(sf::RenderWindow&)const;
 	bool finished()const;
 	static void addToAccessible(Stick*);
-	void debug(sf::RenderWindow&);
+	//void debug(sf::RenderWindow&);
 
 private:
 	std::list<Stick> m_sticksList;

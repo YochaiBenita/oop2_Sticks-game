@@ -12,7 +12,7 @@ public:
 	~Controller();
 	void run(sf::RenderWindow&);
 	void glow(std::list<Stick*>::iterator, std::list<Stick*>::iterator);
-	void debug(sf::RenderWindow&);
+	//void debug(sf::RenderWindow&);
 
 private:
 	int m_score = 0;

@@ -96,15 +96,15 @@ void Board::addToAccessible(Stick* stick)
 	m_accessible.insert({stick->getScore(), stick});
 }
 
-void Board::debug(sf::RenderWindow& m_wind)
-{
-	for (auto it = m_accessible.begin(); it != m_accessible.end(); it++)
-	{
-		Stick& s = *(it->second);
-		s.glow(true);
-		m_wind.draw(s.getRect());
-	}
-}
+//void Board::debug(sf::RenderWindow& m_wind)
+//{
+//	for (auto it = m_accessible.begin(); it != m_accessible.end(); it++)
+//	{
+//		Stick& s = *(it->second);
+//		s.glow(true);
+//		m_wind.draw(s.getRect());
+//	}
+//}
 
 
 void Board::removeAccessible(Stick* stick)
