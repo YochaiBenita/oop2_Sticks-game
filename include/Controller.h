@@ -19,7 +19,7 @@ private:
 	int m_score = 0;
 	Board m_board;
 	sf::Text m_data[NUM_OF_DATA];
-	sf::RectangleShape m_backgraund;
+	sf::RectangleShape m_background;
 	sf::RectangleShape m_boardBackground;
 	sf::Clock m_clock;
 	float m_timer = 120;

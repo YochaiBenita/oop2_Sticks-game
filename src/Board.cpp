@@ -72,13 +72,10 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		}
 		else
 		{
-			std::cout << "cant lift stick, controller reset\n";
 			m_controller->glow(stick->getBlockedByBegin(), stick->getBlockedByEnd());
-			std::cout << "cant lift stick, controller reset finished\n";
+			m_controller->addToScore(-5);
 		}
 	}
-	std::cout << "**Board::play m_accss.sise = " << m_accessible.size() << '\n';
-
 }
 
 void Board::draw(sf::RenderWindow& m_wind) const

@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include <iostream>
 #include <exception>
+#include "Resources.h"
 
 Menu::Menu()
 {
@@ -11,11 +12,11 @@ Menu::Menu()
 
 	for (int i = 0; i < NUM_OF_BUTTONS; i++)
 	{
-		m_button[i].setSize(sf::Vector2f(300, 100));
+		m_button[i].setSize(sf::Vector2f(300, 120));
 		m_button[i].setOrigin(sf::Vector2f(150, 50));
 		m_button[i].setPosition(sf::Vector2f(450, 120 * (i + 1)));
-		m_button[i].setFillColor(sf::Color::Green);
-
+		m_button[i].setTexture(Resources::getInstance().getTextureButtons(i));
+		
 		//m_button[i].setTexture(*Resources::getInstance().getTextureButtons(i));
 		//m_button[i].setPosition(sf::Vector2f(250, 100 * (i + 1)));
 	}
@@ -54,22 +55,10 @@ void Menu::show_menu()
 				switch (option)
 				{
 				case 0:
-					m_controller = new Controller();
-					m_controller->run(m_wind);
-					delete m_controller;
+					newGame();
 					break;
 				case 1:
-					try
-					{
-						m_controller = new Controller("Sticks.txt");
-					}
-					catch (std::exception &exp)
-					{
-						std::cout << exp.what() << '\n';//לממש עם ספרייט
-						m_controller = new Controller();
-					}
-					m_controller->run(m_wind);
-					delete m_controller;
+					loadGame();
 					break;
 				case 2:
 					show_help();
@@ -83,6 +72,48 @@ void Menu::show_menu()
 		}
 
 	}
+}
+
+int Menu::handle_click(sf::Vector2f v2f) const
+{
+	for (int i = 0; i < NUM_OF_BUTTONS; i++)
+	{
+		if (m_button[i].getGlobalBounds().contains(v2f))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void Menu::draw_buttons(sf::RenderWindow& wind) const
+{
+	for (int i = 0; i < NUM_OF_BUTTONS; i++)
+	{
+		wind.draw(m_button[i]);
+	}
+}
+
+void Menu::newGame()
+{
+	m_controller = new Controller();
+	m_controller->run(m_wind);
+	delete m_controller;
+}
+
+void Menu::loadGame()
+{
+	try
+	{
+		m_controller = new Controller("Sticks.txt");
+	}
+	catch (std::exception& exp)
+	{
+		std::cout << exp.what() << '\n';//לממש עם ספרייט
+		m_controller = new Controller();
+	}
+	m_controller->run(m_wind);
+	delete m_controller;
 }
 
 void Menu::show_help()
@@ -108,26 +139,5 @@ void Menu::show_help()
 				return;
 			}
 		}
-	}
-}
-
-
-int Menu::handle_click(sf::Vector2f v2f) const
-{
-	for (int i = 0; i < NUM_OF_BUTTONS-2; i++)
-	{
-		if (m_button[i].getGlobalBounds().contains(v2f))
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
-void Menu::draw_buttons(sf::RenderWindow& wind) const
-{
-	for (int i = 0; i < NUM_OF_BUTTONS-2; i++)
-	{
-		wind.draw(m_button[i]);
 	}
 }

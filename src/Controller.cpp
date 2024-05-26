@@ -6,6 +6,15 @@
 
 Controller::Controller(): m_board(this)
 {
+	for (int i = 0; i < NUM_OF_DATA; i++)
+	{
+		m_data[i].setFillColor(sf::Color::White);
+		m_data[i].setCharacterSize(40);
+		m_data[i].setFont(*Resources::getInstance().getFont());
+		m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
+		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
+	}
+
 	m_background.setTexture(Resources::getInstance().getBackground(0));
 	m_background.setSize(sf::Vector2f(900, 600));
 
@@ -19,6 +28,15 @@ Controller::Controller(): m_board(this)
 
 Controller::Controller(std::string fileName): m_board(this, fileName)
 {
+	for (int i = 0; i < NUM_OF_DATA; i++)
+	{
+		m_data[i].setFillColor(sf::Color::White);
+		m_data[i].setCharacterSize(40);
+		m_data[i].setFont(*Resources::getInstance().getFont());
+		//m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
+		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
+	}
+
 	m_background.setTexture(Resources::getInstance().getBackground(0));
 
 	m_boardBackground.setSize(BOARD_SIZE);
@@ -105,12 +123,6 @@ void Controller::draw_data(sf::RenderWindow& wind)
 
 	for (int i = 0; i < NUM_OF_DATA; i++)
 	{
-		m_data[i].setFillColor(sf::Color::Black);
-		m_data[i].setCharacterSize(40);
-		m_data[i].setFont(*Resources::getInstance().getFont());
-		m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
-		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
-
 		wind.draw(m_data[i]);
 	}
 }

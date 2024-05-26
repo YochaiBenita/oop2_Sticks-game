@@ -9,7 +9,7 @@ const long double PI = 3.14159265358979323846;
 
 const std::pair <sf::Color, int> COLOR_AND_SCORE[] = {
 	{sf::Color::Red, 20},
-	{sf::Color::Cyan, 10},
+	{sf::Color::Color(50,160,70), 10},
 	{sf::Color::Blue, 15}
 }; //holding color and score
 
