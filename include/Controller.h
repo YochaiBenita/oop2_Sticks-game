@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
 #include <string>
+#include "Resources.h"
 
 const sf::Vector2f BOARD_SIZE(600, 600);
 const int NUM_OF_DATA = 5;
@@ -21,6 +22,8 @@ private:
 	sf::Text m_data[NUM_OF_DATA];
 	sf::RectangleShape m_backgraund;
 	sf::RectangleShape m_boardBackground;
+	sf::RectangleShape m_buttonsGame[NUM_OF_BUTTONS_GAME];
+
 	sf::Clock m_clock;
 	float m_timer = 120;
 
@@ -29,5 +32,6 @@ private:
 	std::list<Stick*>::iterator m_glowingCurr;
 
 	void draw_data(sf::RenderWindow&);
+	int handleClick(sf::Vector2f) const;
 
 };

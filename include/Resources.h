@@ -3,7 +3,8 @@
 #include <string>
 
 
-const int NUM_OF_BUTTONS = 6;
+const int NUM_OF_BUTTONS_MENU = 4;
+const int NUM_OF_BUTTONS_GAME = 2;
 const int NUM_OF_BACKGROUNDS = 2;
 const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 const int NUM_OF_DATA_TEXTURES = 2; //for time and score

@@ -11,7 +11,7 @@ public:
 	void show_help();
 
 private:
-	sf::RectangleShape m_button[NUM_OF_BUTTONS];
+	sf::RectangleShape m_button[NUM_OF_BUTTONS_MENU];
 	sf::RectangleShape m_background;
 	sf::RenderWindow m_wind;
 	Controller* m_controller;
