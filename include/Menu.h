@@ -7,7 +7,7 @@
 class Menu {
 public:
 	Menu();
-	void show_menu();
+	void showMenu();
 
 
 private:
@@ -17,9 +17,9 @@ private:
 	Controller* m_controller;
 
 
-	int handle_click(sf::Vector2f) const;
-	void draw_buttons(sf::RenderWindow&) const;
+	int handleClick(sf::Vector2f) const;
+	void drawButtons(sf::RenderWindow&) const;
 	void newGame();
 	void loadGame();
-	void show_help();
+	void showHelp();
 };

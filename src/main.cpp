@@ -7,7 +7,7 @@ int main()
 {
 	srand(time(NULL));
 	auto menu = Menu();
-	menu.show_menu();
+	menu.showMenu();
 
 	//auto w =sf::RenderWindow(sf::VideoMode(600, 600), "sfml");
 	//while (w.isOpen()) {

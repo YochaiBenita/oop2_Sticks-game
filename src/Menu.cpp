@@ -26,7 +26,7 @@ Menu::Menu()
 	//m_music.setLoop(true);
 }
 
-void Menu::show_menu()
+void Menu::showMenu()
 {
 	m_wind.create(sf::VideoMode(900, 600), "sticks");
 	 //מוזיקה אם נרצה
@@ -36,7 +36,7 @@ void Menu::show_menu()
 		m_wind.clear(sf::Color::White);
 		m_wind.draw(m_background);
 
-		draw_buttons(m_wind);
+		drawButtons(m_wind);
 
 		m_wind.display();
 
@@ -50,7 +50,7 @@ void Menu::show_menu()
 
 			case sf::Event::MouseButtonReleased:
 			{
-				int option = handle_click(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+				int option = handleClick(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
 
 				switch (option)
 				{
@@ -61,7 +61,7 @@ void Menu::show_menu()
 					loadGame();
 					break;
 				case 2:
-					show_help();
+					showHelp();
 					break;
 				case 3:
 					m_wind.close();
@@ -74,7 +74,7 @@ void Menu::show_menu()
 	}
 }
 
-int Menu::handle_click(sf::Vector2f v2f) const
+int Menu::handleClick(sf::Vector2f v2f) const
 {
 	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
 	{
@@ -86,7 +86,7 @@ int Menu::handle_click(sf::Vector2f v2f) const
 	return -1;
 }
 
-void Menu::draw_buttons(sf::RenderWindow& wind) const
+void Menu::drawButtons(sf::RenderWindow& wind) const
 {
 	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
 	{
@@ -116,7 +116,7 @@ void Menu::loadGame()
 	delete m_controller;
 }
 
-void Menu::show_help()
+void Menu::showHelp()
 {
 	m_wind.clear(sf::Color::White);
 
