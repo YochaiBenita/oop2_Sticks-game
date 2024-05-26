@@ -4,8 +4,8 @@
 
 Menu::Menu()
 {
-	//m_background.setTexture(*Resources::getInstance().getBackground(0));
-	m_background.setFillColor(sf::Color::Cyan);
+	m_background.setTexture(Resources::getInstance().getBackground(0));
+	//m_background.setFillColor(sf::Color::Cyan);
 	m_background.setSize(sf::Vector2f(900, 600));
 	m_controller = nullptr;
 

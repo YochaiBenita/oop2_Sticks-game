@@ -12,12 +12,14 @@ public:
 	~Controller();
 	void run(sf::RenderWindow&);
 	void glow(std::list<Stick*>::iterator, std::list<Stick*>::iterator);
+	void addToScore(int);
 	//void debug(sf::RenderWindow&);
 
 private:
 	int m_score = 0;
 	Board m_board;
-	sf::RectangleShape m_backgraund;
+	sf::RectangleShape m_background;
+	sf::RectangleShape m_boardBackground;
 	sf::Clock m_clock;
 	float m_timer = 120;
 

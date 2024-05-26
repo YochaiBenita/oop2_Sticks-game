@@ -8,9 +8,9 @@ const int BORDER = 20;
 const long double PI = 3.14159265358979323846;
 
 const std::pair <sf::Color, int> COLOR_AND_SCORE[] = {
-	{sf::Color::Red, 100},
-	{sf::Color::Cyan, 150},
-	{sf::Color::Blue, 180}
+	{sf::Color::Red, 20},
+	{sf::Color::Cyan, 10},
+	{sf::Color::Blue, 15}
 }; //holding color and score
 
 class Stick

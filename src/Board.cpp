@@ -113,6 +113,7 @@ void Board::removeAccessible(Stick* stick)
 		[stick](const auto pair) {return pair.second == stick; });
 	if (it != m_accessible.end())
 	{
+		m_controller->addToScore(it->first);
 		it = m_accessible.erase(it);
 	}
 

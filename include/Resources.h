@@ -4,7 +4,7 @@
 
 
 const int NUM_OF_BUTTONS = 6;
-const int NUM_OF_BACKGROUNDS = 3;
+const int NUM_OF_BACKGROUNDS = 2;
 const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 const int NUM_OF_DATA_TEXTURES = 2; //for time and score
 
@@ -46,10 +46,10 @@ private:
 	};
 
 	std::string m_backgroundsNames[NUM_OF_BACKGROUNDS] = {
-	/*"backgroundmenu.png",
-	"help.png",
-	"backgroundtile.png",
-	"backgrounddata.png"*/
+	"background.jpg",
+	"help.jpg"
+	//"backgroundtile.png",
+	//"backgrounddata.png"
 	};
 
 	std::string m_button[NUM_OF_BUTTONS] = {

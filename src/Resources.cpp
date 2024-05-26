@@ -2,21 +2,12 @@
 
 Resources::Resources()
 {
-	//auto line = std::string();
-	//auto file = std::ifstream("playlist.txt");
-
-	////level names
-	//while (std::getline(file, line))
-	//{
-	//	m_levels_name.push_back(line);
-	//}
-
 	//texures
 	//readData(m_texures, m_FileNames, NUM_OF_TEXTURES);
-	readData(m_dataTexures, m_dataTexturesNames, NUM_OF_DATA_TEXTURES);
+	//readData(m_dataTexures, m_dataTexturesNames, NUM_OF_DATA_TEXTURES);
 	readData(m_backgroungs, m_backgroundsNames, NUM_OF_BACKGROUNDS);
-	readData(m_buttonsTexures, m_button, NUM_OF_BUTTONS);
-	readData(m_messagesTexures, m_messages, NUM_OF_MESSAGES);
+	//readData(m_buttonsTexures, m_button, NUM_OF_BUTTONS);
+	//readData(m_messagesTexures, m_messages, NUM_OF_MESSAGES);
 
 	/*m_backgroungs[2].setRepeated(true);
 	m_backgroungs[3].setRepeated(true);*/
