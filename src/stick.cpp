@@ -189,3 +189,10 @@ bool operator==(const Stick& first, const Stick& second)
 {
 	return (&first)==(&second);
 }
+
+std::ostream& operator << (std::ostream& os, const Stick& obj)
+{
+	//printig stick to file
+
+	return os;
+}
