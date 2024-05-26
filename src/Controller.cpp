@@ -1,6 +1,8 @@
 #include "Controller.h"
 #include <iostream>
+#include <string>
 #include "Resources.h"
+
 
 Controller::Controller(): m_board(this)
 {
@@ -41,7 +43,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 		//print info
 		//printing score, timer, hint, save 
-		//
+		draw_data(m_wind);
 		m_wind.draw(m_boardBackground);
 		
 		auto delta_time = m_clock.restart();
@@ -91,6 +93,26 @@ void Controller::glow(std::list<Stick*>::iterator curr, std::list<Stick*>::itera
 	m_blinking = true;
 	m_glowingCurr = curr;
 	m_glowingEnd = end;
+}
+
+void Controller::draw_data(sf::RenderWindow& wind)
+{
+	m_data[0].setString("TIME: " + std::to_string((int)m_timer));
+	m_data[1].setString("ACCESSIBLE: " + std::to_string(m_board.getAccessibleStics()));
+	m_data[2].setString("REMAINED: " + std::to_string(m_board.getRemainedSticks()));
+	m_data[3].setString("COLLECTED: " + std::to_string(m_board.getCollectedSticks()));
+	m_data[4].setString("SCORE: " + std::to_string(m_score));
+
+	for (int i = 0; i < NUM_OF_DATA; i++)
+	{
+		m_data[i].setFillColor(sf::Color::Black);
+		m_data[i].setCharacterSize(40);
+		m_data[i].setFont(*Resources::getInstance().getFont());
+		m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
+		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
+
+		wind.draw(m_data[i]);
+	}
 }
 
 void Controller::addToScore(int score)

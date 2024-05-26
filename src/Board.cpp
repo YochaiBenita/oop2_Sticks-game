@@ -7,7 +7,7 @@
 
 std::multimap<int, Stick*> Board::m_accessible;
 
-Board::Board(Controller* con) : m_controller(con)
+Board::Board(Controller* con) : m_controller(con), m_collected(0)
 {
 	int x = rand() % 30 + 20;//num of sticks betwean 20-49
 	for (int i = 0; i < x; i++) 
@@ -43,7 +43,7 @@ Board::Board(Controller* con) : m_controller(con)
 	}
 }
 
-Board::Board(Controller* con, const std::string fileName) : m_controller(con)
+Board::Board(Controller* con, const std::string fileName) : m_controller(con), m_collected(0) //לעדכן לפי מה שנקרא בקובץ.
 {
 	auto file = std::ifstream(fileName);
 	if (!file.is_open())
@@ -68,6 +68,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		{
 			removeAccessible(&(*stick));
 			m_sticksList.remove(*stick);
+			m_collected++;
 		}
 		else
 		{
@@ -95,6 +96,22 @@ void Board::addToAccessible(Stick* stick)
 {
 	m_accessible.insert({stick->getScore(), stick});
 }
+
+int Board::getCollectedSticks() const
+{
+	return m_collected;;
+}
+
+int Board::getRemainedSticks() const
+{
+	return m_sticksList.size();
+}
+
+int Board::getAccessibleStics() const
+{
+	return m_accessible.size();
+}
+
 
 //void Board::debug(sf::RenderWindow& m_wind)
 //{
