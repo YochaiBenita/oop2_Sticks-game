@@ -4,7 +4,7 @@
 
 
 const int NUM_OF_BUTTONS_MENU = 4;
-const int NUM_OF_BUTTONS_GAME = 2;
+const int NUM_OF_BUTTONS_BOARD = 2;
 const int NUM_OF_BACKGROUNDS = 2;
 const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 const int NUM_OF_DATA_TEXTURES = 2; //for time and score
@@ -19,10 +19,11 @@ class Resources
 public:
 	static Resources& getInstance();
 
-	const sf::Texture* getTextureMs(int) const;
-	const sf::Texture* getDataTexure(int) const;
+	//const sf::Texture* getTextureMs(int) const;
+	//const sf::Texture* getDataTexure(int) const;
 	const sf::Texture* getBackground(int) const;
 	const sf::Texture* getTextureButtons(int) const;
+	const sf::Texture* getTextureBoardButtons(int) const;
 
 	const sf::Font* getFont() const;
 
@@ -32,10 +33,11 @@ private:
 	Resources& operator=(const Resources&) = delete;
 
 	void readData(sf::Texture[], std::string[], int);
-	sf::Texture m_dataTexures[NUM_OF_DATA_TEXTURES];
+	//sf::Texture m_dataTexures[NUM_OF_DATA_TEXTURES];
 	sf::Texture m_backgroungs[NUM_OF_BACKGROUNDS];
 	sf::Texture m_buttonsTexures[NUM_OF_BUTTONS_MENU];
-	sf::Texture m_messagesTexures[NUM_OF_MESSAGES];
+	sf::Texture m_buttonsBoardTexures[NUM_OF_BUTTONS_MENU];
+	//sf::Texture m_messagesTexures[NUM_OF_MESSAGES];
 	sf::Font m_font;
 
 	std::string m_dataTexturesNames[NUM_OF_DATA_TEXTURES] = {
@@ -51,11 +53,17 @@ private:
 	"help.jpg"
 	};
 
-	std::string m_button[NUM_OF_BUTTONS] = {
+	std::string m_buttonMenu[NUM_OF_BUTTONS_MENU] = {
 	"play.png",
 	"continue.png",
 	"rules.png",
 	"exit.png"
+	};
+
+
+	std::string m_buttonBoard[NUM_OF_BUTTONS_BOARD] = {
+	"hint.png",
+	"save.png"
 	};
 
 

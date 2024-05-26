@@ -76,7 +76,7 @@ void Menu::show_menu()
 
 int Menu::handle_click(sf::Vector2f v2f) const
 {
-	for (int i = 0; i < NUM_OF_BUTTONS; i++)
+	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
 	{
 		if (m_button[i].getGlobalBounds().contains(v2f))
 		{
@@ -88,7 +88,7 @@ int Menu::handle_click(sf::Vector2f v2f) const
 
 void Menu::draw_buttons(sf::RenderWindow& wind) const
 {
-	for (int i = 0; i < NUM_OF_BUTTONS; i++)
+	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
 	{
 		wind.draw(m_button[i]);
 	}
@@ -143,22 +143,3 @@ void Menu::show_help()
 }
 
 
-int Menu::handle_click(sf::Vector2f v2f) const
-{
-	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
-	{
-		if (m_button[i].getGlobalBounds().contains(v2f))
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
-void Menu::draw_buttons(sf::RenderWindow& wind) const
-{
-	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
-	{
-		wind.draw(m_button[i]);
-	}
-}

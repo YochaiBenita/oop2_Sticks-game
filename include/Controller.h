@@ -22,7 +22,7 @@ private:
 	sf::Text m_data[NUM_OF_DATA];
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_boardBackground;
-	sf::RectangleShape m_buttonsGame[NUM_OF_BUTTONS_GAME];
+	sf::RectangleShape m_buttonsGame[NUM_OF_BUTTONS_BOARD];
 
 	sf::Clock m_clock;
 	float m_timer = 120;
@@ -33,5 +33,6 @@ private:
 
 	void draw_data(sf::RenderWindow&);
 	int handleClick(sf::Vector2f) const;
+	void resetSFMLComponents();
 
 };

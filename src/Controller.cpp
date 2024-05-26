@@ -5,49 +5,12 @@
 
 Controller::Controller() : m_board(this)
 {
-	for (int i = 0; i < NUM_OF_DATA; i++)
-	{
-		m_data[i].setFillColor(sf::Color::White);
-		m_data[i].setCharacterSize(40);
-		m_data[i].setFont(*Resources::getInstance().getFont());
-		m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
-		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
-	}
-
-	m_background.setTexture(Resources::getInstance().getBackground(0));
-	m_background.setSize(sf::Vector2f(900, 600));
-
-	m_boardBackground.setSize(BOARD_SIZE);
-	m_boardBackground.setPosition(sf::Vector2f(300, 0));
-	m_boardBackground.setOutlineColor(sf::Color::Black);
-	m_boardBackground.setOutlineThickness(5);
-	m_boardBackground.setFillColor(sf::Color::Color(255, 255, 255, 50));
-
-	for (int i = 0; i < NUM_OF_BUTTONS_GAME; i++)
-	{
-		m_buttonsGame[i].setSize(sf::Vector2f(100, 100));
-		m_buttonsGame[i].setPosition(sf::Vector2f(30 + i*100, 540));
-	}
+	resetSFMLComponents();
 }
 
 Controller::Controller(std::string fileName): m_board(this, fileName)
 {
-	for (int i = 0; i < NUM_OF_DATA; i++)
-	{
-		m_data[i].setFillColor(sf::Color::White);
-		m_data[i].setCharacterSize(40);
-		m_data[i].setFont(*Resources::getInstance().getFont());
-		//m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
-		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
-	}
-
-	m_background.setTexture(Resources::getInstance().getBackground(0));
-
-	m_boardBackground.setSize(BOARD_SIZE);
-	m_boardBackground.setPosition(sf::Vector2f(300, 0));
-	m_boardBackground.setOutlineColor(sf::Color::Black);
-	m_boardBackground.setOutlineThickness(5);
-	m_boardBackground.setFillColor(sf::Color::Transparent);
+	resetSFMLComponents();
 }
 
 Controller::~Controller()
@@ -63,8 +26,6 @@ void Controller::run(sf::RenderWindow& m_wind)
 		m_wind.clear(sf::Color::White);
 		m_wind.draw(m_background);
 
-		//print info
-		//printing score, timer, hint, save 
 		draw_data(m_wind);
 		m_wind.draw(m_boardBackground);
 		
@@ -93,20 +54,24 @@ void Controller::run(sf::RenderWindow& m_wind)
 			{
 				auto mousePosition = m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 
-				if (m_boardBackground.getGlobalBounds().contains(mousePosition)){
+				if (m_boardBackground.getGlobalBounds().contains(mousePosition)) {
 					m_board.play(m_wind, mousePosition);
 				}
-				else{
+				else {
 					int option = handleClick(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
 
 					switch (option)
 					{
 					case 0:
 						//hint
+						addToScore(-20);
+
 						break;
 					case 1:
 						//save
+
 						break;
+					}
 				}
 			}
 		}
@@ -138,6 +103,11 @@ void Controller::draw_data(sf::RenderWindow& wind)
 	{
 		wind.draw(m_data[i]);
 	}
+
+	for (int i = 0; i < NUM_OF_BUTTONS_BOARD; i++)
+	{
+		wind.draw(m_buttonsGame[i]);
+	}
 }
 
 void Controller::addToScore(int score)
@@ -159,5 +129,33 @@ int Controller::handleClick(sf::Vector2f v2f) const
 		}
 	}
 	return -1;
+}
+
+void Controller::resetSFMLComponents()
+{
+	for (int i = 0; i < NUM_OF_DATA; i++)
+	{
+		m_data[i].setFillColor(sf::Color::White);
+		m_data[i].setCharacterSize(40);
+		m_data[i].setFont(*Resources::getInstance().getFont());
+		m_data[i].setOrigin(sf::Vector2f(m_data[i].getGlobalBounds().width / 2, m_data[i].getGlobalBounds().height / 2));
+		m_data[i].setPosition(sf::Vector2f(10, 20 + 100 * i));
+	}
+
+	m_background.setTexture(Resources::getInstance().getBackground(0));
+	m_background.setSize(sf::Vector2f(900, 600));
+
+	m_boardBackground.setSize(BOARD_SIZE);
+	m_boardBackground.setPosition(sf::Vector2f(300, 0));
+	m_boardBackground.setOutlineColor(sf::Color::Black);
+	m_boardBackground.setOutlineThickness(5);
+	m_boardBackground.setFillColor(sf::Color::Color(255, 255, 255, 50));
+
+	for (int i = 0; i < NUM_OF_BUTTONS_BOARD; i++)
+	{
+		m_buttonsGame[i].setSize(sf::Vector2f(100, 100));
+		m_buttonsGame[i].setPosition(sf::Vector2f(30 + i * 100, 480));
+		m_buttonsGame[i].setTexture(Resources::getInstance().getTextureBoardButtons(i));
+	}
 }
 
