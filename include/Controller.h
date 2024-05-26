@@ -34,5 +34,5 @@ private:
 	void draw_data(sf::RenderWindow&);
 	int handleClick(sf::Vector2f) const;
 	void resetSFMLComponents();
-
+	//void hint();
 };

@@ -159,3 +159,11 @@ void Controller::resetSFMLComponents()
 	}
 }
 
+//void Controller::hint()
+//{
+//	for (int i = 0; i < (m_board.getAccessibleStics()); i++)
+//	{
+//
+//	}
+//}
+
