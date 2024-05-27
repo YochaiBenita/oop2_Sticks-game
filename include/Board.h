@@ -27,7 +27,7 @@ public:
 private:
 	std::list<Stick> m_sticksList;
 	static std::multimap<int, Stick*> m_accessible;
-	int m_collected;
+	int m_collected = 0;
 	Controller* m_controller;
 
 	void removeAccessible(Stick*);

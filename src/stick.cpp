@@ -194,7 +194,11 @@ std::ostream& operator << (std::ostream& os, const Stick& obj)
 {
 	auto rect = obj.getRect();
 	
-	//printig stick to file
+	os << obj.getScore() << ' '
+		<< rect.getSize().x << ' '
+		<< rect.getRotation() << ' '
+		<< rect.getPosition().x << ' ' 
+		<< rect.getPosition().y;
 
 	return os;
 }

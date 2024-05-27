@@ -46,7 +46,7 @@ private:
 	
 	sf::RectangleShape m_line;
 	int m_score;
-	sf::Vector2f m_startPoint;
+	//sf::Vector2f m_startPoint;
 };
 
 bool operator == (const Stick&, const Stick&);
