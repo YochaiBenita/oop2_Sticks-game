@@ -34,7 +34,8 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 		if (m_blinking)
 		{
-			sf::sleep(sf::seconds(0.7));
+			blink();
+			/*sf::sleep(sf::seconds(0.7));
 			(*m_glowingCurr)->glow(false);
 			++m_glowingCurr;
 			if (m_glowingCurr == m_glowingEnd)
@@ -42,7 +43,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 				m_blinking = false;
 				continue;
 			}
-			(*m_glowingCurr)->glow(true);
+			(*m_glowingCurr)->glow(true);*/
 		}
 		else if (auto event = sf::Event(); m_wind.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
@@ -157,6 +158,19 @@ void Controller::resetSFMLComponents()
 		m_buttonsGame[i].setPosition(sf::Vector2f(30 + i * 100, 480));
 		m_buttonsGame[i].setTexture(Resources::getInstance().getTextureBoardButtons(i));
 	}
+}
+
+void Controller::blink()
+{
+	sf::sleep(sf::seconds(0.7));
+	(*m_glowingCurr)->glow(false);
+	++m_glowingCurr;
+	if (m_glowingCurr == m_glowingEnd)
+	{
+		m_blinking = false;
+		return;
+	}
+	(*m_glowingCurr)->glow(true);
 }
 
 //void Controller::hint()

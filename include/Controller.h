@@ -34,5 +34,24 @@ private:
 	void draw_data(sf::RenderWindow&);
 	int handleClick(sf::Vector2f) const;
 	void resetSFMLComponents();
+	void blink();
 	//void hint();
 };
+
+
+
+
+//std::list<Stick*>::iterator m_glowingEnd;
+//std::list<Stick*>::iterator m_glowingCurr;
+//void Controller::blink()
+//{
+//	sf::sleep(sf::seconds(0.7));
+//	(*m_glowingCurr)->glow(false);
+//	++m_glowingCurr;
+//	if (m_glowingCurr == m_glowingEnd)
+//	{
+//		m_blinking = false;
+//		return;
+//	}
+//	(*m_glowingCurr)->glow(true);
+//}
