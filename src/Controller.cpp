@@ -34,16 +34,15 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 		if (m_blinking)
 		{
+			m_blinking = false;
+			m_blockedAndPressed->glowBlockingSticks(false);
+			sf::sleep(sf::seconds(0.7));
+		}
+
+		if (m_hint)
+		{
 			blink();
-			/*sf::sleep(sf::seconds(0.7));
-			(*m_glowingCurr)->glow(false);
-			++m_glowingCurr;
-			if (m_glowingCurr == m_glowingEnd)
-			{
-				m_blinking = false;
-				continue;
-			}
-			(*m_glowingCurr)->glow(true);*/
+
 		}
 		else if (auto event = sf::Event(); m_wind.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
@@ -64,7 +63,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 					switch (option)
 					{
 					case 0:
-						//hint
+						hint(m_board.getAccessibleBegin(), m_board.getAccessibleEnd());
 						addToScore(-20);
 
 						break;
@@ -85,11 +84,14 @@ void Controller::run(sf::RenderWindow& m_wind)
 	}
 }
 
-void Controller::glow(std::list<Stick*>::iterator curr, std::list<Stick*>::iterator end)
+void Controller::hint(const std::multimap<int, Stick*>::iterator& curr,
+	const std::multimap<int, Stick*>::iterator& end)
 {
-	m_blinking = true;
+	m_hint = true;
 	m_glowingCurr = curr;
 	m_glowingEnd = end;
+	
+	m_glowingCurr->second->glow(true);
 }
 
 void Controller::draw_data(sf::RenderWindow& wind)
@@ -114,6 +116,12 @@ void Controller::draw_data(sf::RenderWindow& wind)
 void Controller::addToScore(int score)
 {
 	m_score += score;
+}
+
+void Controller::updateBlinking(Stick* obj)
+{
+	m_blinking = true;
+	m_blockedAndPressed = obj;
 }
 
 //void Controller::debug(sf::RenderWindow& m_wind)
@@ -163,14 +171,14 @@ void Controller::resetSFMLComponents()
 void Controller::blink()
 {
 	sf::sleep(sf::seconds(0.7));
-	(*m_glowingCurr)->glow(false);
+	(*m_glowingCurr).second->glow(false);
 	++m_glowingCurr;
 	if (m_glowingCurr == m_glowingEnd)
 	{
-		m_blinking = false;
+		m_hint = false;
 		return;
 	}
-	(*m_glowingCurr)->glow(true);
+	(*m_glowingCurr).second->glow(true);
 }
 
 //void Controller::hint()

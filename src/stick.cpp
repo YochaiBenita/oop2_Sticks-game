@@ -84,7 +84,7 @@ bool Stick::handleClick()
 	}
 	else
 	{
-		(*m_blockedBy.begin())->glow(true);
+		glowBlockingSticks(true);
 		return false;
 	}
 }
@@ -101,6 +101,11 @@ void Stick::removeBlockedBy(Stick* stick)
 void Stick::glow(bool val)
 {
 	m_line.setOutlineColor((val) ? sf::Color::Green : sf::Color::Black);
+}
+
+void Stick::glowBlockingSticks(bool val)
+{
+	std::for_each(m_blockedBy.begin(), m_blockedBy.end(), [val](auto stick) {stick->glow(val); });
 }
 
 std::list<Stick*>::iterator Stick::getBlockedByBegin()

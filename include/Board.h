@@ -23,6 +23,10 @@ public:
 	int getCollectedSticks() const;
 	int getRemainedSticks() const;
 	int getAccessibleStics() const;
+	std::multimap<int, Stick*>::iterator getAccessibleBegin() const;
+	std::multimap<int, Stick*>::iterator getAccessibleEnd() const;
+
+
 
 private:
 	std::list<Stick> m_sticksList;

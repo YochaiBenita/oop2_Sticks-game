@@ -3,6 +3,7 @@
 #include "Board.h"
 #include <string>
 #include "Resources.h"
+//#include <map>
 
 const sf::Vector2f BOARD_SIZE(600, 600);
 const int NUM_OF_DATA = 5;
@@ -12,8 +13,9 @@ public:
 	Controller(std::string);
 	~Controller();
 	void run(sf::RenderWindow&);
-	void glow(std::list<Stick*>::iterator, std::list<Stick*>::iterator);
+	void hint(const std::multimap<int, Stick*>::iterator&, const std::multimap<int, Stick*>::iterator&);
 	void addToScore(int);
+	void updateBlinking(Stick*);
 	//void debug(sf::RenderWindow&);
 
 private:
@@ -28,8 +30,11 @@ private:
 	float m_timer = 120;
 
 	bool m_blinking = false;
-	std::list<Stick*>::iterator m_glowingEnd;
-	std::list<Stick*>::iterator m_glowingCurr;
+	bool m_hint = false;
+	std::multimap<int, Stick*>::iterator m_glowingCurr;
+	std::multimap<int, Stick*>::iterator m_glowingEnd;
+	Stick* m_blockedAndPressed;
+
 
 	void draw_data(sf::RenderWindow&);
 	int handleClick(sf::Vector2f) const;

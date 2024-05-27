@@ -64,7 +64,7 @@ void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
 		}
 		else
 		{
-			m_controller->glow(stick->getBlockedByBegin(), stick->getBlockedByEnd());
+			m_controller->updateBlinking(&(*stick));
 			m_controller->addToScore(-5);
 		}
 	}
@@ -99,6 +99,16 @@ int Board::getRemainedSticks() const
 int Board::getAccessibleStics() const
 {
 	return m_accessible.size();
+}
+
+std::multimap<int, Stick*>::iterator Board::getAccessibleBegin() const
+{
+	return m_accessible.begin();
+}
+
+std::multimap<int, Stick*>::iterator Board::getAccessibleEnd() const
+{
+	return m_accessible.end();
 }
 
 

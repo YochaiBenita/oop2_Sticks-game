@@ -28,6 +28,7 @@ public:
 	bool handleClick();
 	void removeBlockedBy(Stick*);
 	void glow(bool);
+	void glowBlockingSticks(bool);
 	//std::list<Stick*> getBlockedByList()const;
 	std::list<Stick*>::iterator getBlockedByBegin();
 	std::list<Stick*>::iterator getBlockedByEnd();
