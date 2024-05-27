@@ -6,7 +6,6 @@
 Menu::Menu()
 {
 	m_background.setTexture(Resources::getInstance().getBackground(0));
-	//m_background.setFillColor(sf::Color::Cyan);
 	m_background.setSize(sf::Vector2f(900, 600));
 	m_controller = nullptr;
 
@@ -17,8 +16,6 @@ Menu::Menu()
 		m_button[i].setPosition(sf::Vector2f(450, 120 * (i + 1)));
 		m_button[i].setTexture(Resources::getInstance().getTextureButtons(i));
 		
-		//m_button[i].setTexture(*Resources::getInstance().getTextureButtons(i));
-		//m_button[i].setPosition(sf::Vector2f(250, 100 * (i + 1)));
 	}
 
 	//m_music.openFromFile("game music.ogg");
