@@ -5,7 +5,7 @@
 #include "InvalidFileException.h"
 #include "InvalidContentFileException.h"
 
-std::multimap<int, Stick*> Board::m_accessible;
+std::multimap<int, Stick* , std::greater<int>> Board::m_accessible;
 
 Board::Board(Controller* con) : m_controller(con), m_collected(0)
 {
