@@ -39,7 +39,6 @@ Stick::Stick(std::string line)
 	std::istringstream iss(line);
 	int score, len, rotation, position_x, position_y;
 	iss >> score >> len >> rotation >> position_x >> position_y;
-	std::cout << "s\n";
 	if (!((score == 10 || score == 15 || score == 20) &&
 		(len >= MIN_LEN && len <= MIN_LEN + 50) &&
 		((rotation % 90 != 0) || (rotation % 180 == 0)) &&
@@ -48,8 +47,6 @@ Stick::Stick(std::string line)
 	{
 		throw InvalidContentFileException();
 	}
-	std::cout << "f\n";
-
 
 	m_score = score;
 
