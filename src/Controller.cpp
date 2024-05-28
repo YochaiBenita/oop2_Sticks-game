@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include "Menu.h"
+#include <fstream>
+#include <sstream>
 
 Controller::Controller() : m_board()
 {
@@ -75,8 +77,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 						break;
 					case 1:
-						//save
-
+						saveData();
 						break;
 					}
 				}
@@ -198,6 +199,17 @@ void Controller::blink()
 		return;
 	}
 	(*m_glowingCurr).second->glow(true);
+}
+
+void Controller::saveData() const
+{
+	auto file = std::ofstream(FILE_NAME);
+
+	file.clear();
+	
+	file << m_score << " " << int(m_timer) << " " << m_board.getCollectedSticks() <<'\n';
+	
+	m_board.writeSticks(file);
 }
 
 //void Controller::hint()

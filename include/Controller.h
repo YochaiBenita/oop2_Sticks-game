@@ -28,7 +28,7 @@ private:
 	sf::RectangleShape m_buttonsGame[NUM_OF_BUTTONS_BOARD];
 
 	sf::Clock m_clock;
-	float m_timer  = 120 ; //мозеч
+	float m_timer;
 
 	bool m_blinking = false;
 	bool m_hint = false;
@@ -41,7 +41,7 @@ private:
 	int handleClick(sf::Vector2f) const;
 	void resetSFMLComponents();
 	void blink();
-	//void hint();
+	void saveData() const;
 };
 
 

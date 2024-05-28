@@ -42,7 +42,7 @@ Stick::Stick(std::string line)
 
 	if (!((score == 10 || score == 15 || score == 20) &&
 		(len >= MIN_LEN && len <= MIN_LEN + 50) &&
-		(rotation >= -89 && rotation <= 89) &&
+		((rotation % 90 != 0) || (rotation % 180 == 0)) &&
 		(position_x - BORDER - 300 >= 0 && position_x + BORDER + 300 <= 900) &&
 		(position_y - BORDER >= 0 && position_y + BORDER <= 600)))
 	{
