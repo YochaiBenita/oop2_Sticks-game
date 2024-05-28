@@ -61,7 +61,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 			}
 			if (event.type == sf::Event::MouseButtonReleased)
 			{
-				auto mousePosition = m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+				bottunPressed(m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y)));
 
 				if (m_boardBackground.getGlobalBounds().contains(mousePosition)) {
 					m_board.play(this, mousePosition);
