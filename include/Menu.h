@@ -4,11 +4,12 @@
 #include "Controller.h"
 
 
+void handleHover(sf::Vector2f, sf::RectangleShape*, int);
+
 class Menu {
 public:
 	Menu();
 	void showMenu();
-
 
 private:
 	sf::RectangleShape m_button[NUM_OF_BUTTONS_MENU];
@@ -22,4 +23,6 @@ private:
 	void newGame();
 	void loadGame();
 	void showHelp();
+	//void handleHover(sf::Vector2f);
+
 };

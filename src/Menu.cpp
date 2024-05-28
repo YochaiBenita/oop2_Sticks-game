@@ -3,6 +3,23 @@
 #include <exception>
 #include "Resources.h"
 
+void handleHover(sf::Vector2f v2f, sf::RectangleShape* buttons, int size) //global function
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (buttons[i].getGlobalBounds().contains(v2f))
+		{
+			buttons[i].setScale(1.1f, 1.1f);
+		}
+		else
+		{
+			buttons[i].setScale(1.0f, 1.0f);
+
+		}
+	}
+}
+
+
 Menu::Menu()
 {
 	m_background.setTexture(Resources::getInstance().getBackground(0));
@@ -33,8 +50,11 @@ void Menu::showMenu()
 		m_wind.clear(sf::Color::White);
 		m_wind.draw(m_background);
 
-		drawButtons(m_wind);
+		sf::Vector2i mousePos = sf::Mouse::getPosition(m_wind);
+		sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
 
+		handleHover(mousePosF, m_button, NUM_OF_BUTTONS_MENU);
+		drawButtons(m_wind);
 		m_wind.display();
 
 		if (auto event = sf::Event(); m_wind.pollEvent(event))
@@ -139,4 +159,18 @@ void Menu::showHelp()
 	}
 }
 
-
+//void Menu::handleHover(sf::Vector2f v2f, )
+//{
+//	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
+//	{
+//		if (m_button[i].getGlobalBounds().contains(v2f))
+//		{
+//			m_button[i].setScale(1.1f, 1.1f);
+//		}
+//		else
+//		{
+//			m_button[i].setScale(1.0f, 1.0f);
+//
+//		}
+//	}
+//}
