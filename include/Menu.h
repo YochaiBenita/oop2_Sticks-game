@@ -9,6 +9,7 @@ void handleHover(sf::Vector2f, sf::RectangleShape*, int);
 class Menu {
 public:
 	Menu();
+	~Menu();
 	void showMenu();
 
 private:
@@ -23,6 +24,5 @@ private:
 	void newGame();
 	void loadGame();
 	void showHelp();
-	//void handleHover(sf::Vector2f);
 
 };

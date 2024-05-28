@@ -5,7 +5,25 @@
 //const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 //const int NUM_OF_DATA_TEXTURES = 2; //for time and score
 
+
+const int WIDTH = 20;
+const int MIN_LEN = 150;
+const int BORDER = 20;
+const int NUM_OF_COLORS = 3;
+const long double PI = 3.14159265358979323846;
 const sf::Vector2f ERROR_SCREEN_SIZE(400, 200);
+const sf::Vector2f SCREEN_SIZE(900, 600);
+const sf::Vector2f BOARD_SIZE(600, 600);
+const int NUM_OF_DATA = 5;
+const int HINT_PRICE = -20;
+const int WORNG_STICK_FINE = -5;
+
+
+const std::pair <sf::Color, int> COLOR_AND_SCORE[NUM_OF_COLORS] = {
+	{sf::Color::Red, 20},
+	{sf::Color::Color(50,160,70), 10},
+	{sf::Color::Blue, 15}
+};
 
 const std::string FILE_NAME = "sticks.txt";
 

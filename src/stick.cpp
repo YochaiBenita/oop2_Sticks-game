@@ -20,16 +20,16 @@ Stick::Stick()
 	m_line.setOutlineThickness(3);
 	m_line.setOutlineColor(sf::Color::Black);
 
-	x = (rand() % 5) * 10;
+	x = rand() % 50;
 	m_line.setSize(sf::Vector2f(MIN_LEN + x, WIDTH));
 
-	x = (rand() % 179) - 89;
+	x = (rand() % 179) - 89; //to avoide stick || to y
 	m_line.setRotation(x);
 
 	int y;
 
-	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + 300 +BORDER;
-	y = (rand() % (int(BOARD_SIZE.y) - 2 * BORDER)) + BORDER;
+	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + 300 + BORDER;	//actual board size, minus two borders, plus the ifno bar and left border 
+	y = (rand() % (int(BOARD_SIZE.y) - 2 * BORDER)) + BORDER;		//actual board size, minus two borders, plus the upper border
 	m_line.setPosition(sf::Vector2f(x, y));
 
 }
@@ -38,8 +38,9 @@ Stick::Stick(std::string line)
 {
 	std::istringstream iss(line);
 	int score, len, rotation, position_x, position_y;
+
 	iss >> score >> len >> rotation >> position_x >> position_y;
-	std::cout << "s\n";
+	
 	if (!((score == 10 || score == 15 || score == 20) &&
 		(len >= MIN_LEN && len <= MIN_LEN + 50) &&
 		((rotation % 90 != 0) || (rotation % 180 == 0)) &&
@@ -48,8 +49,6 @@ Stick::Stick(std::string line)
 	{
 		throw InvalidContentFileException();
 	}
-	std::cout << "f\n";
-
 
 	m_score = score;
 
@@ -71,14 +70,11 @@ Stick::Stick(std::string line)
 void Stick::findAllIntersections(const std::list<Stick>& list,
 	std::list<Stick>::iterator obj)
 {
-	sf::Vector2f endPointLine = getEndPoint(m_line);//test
+	sf::Vector2f endPointLine = getEndPoint(m_line);
 
-	//auto obj = std::find(list.begin(), list.end(), this);
-	//obj++;
-
-	for (; obj != list.end(); ++obj) //for on all obj from other to end
+	for (; obj != list.end(); ++obj) //for all obj from other to end
 	{
-		sf::Vector2f endPointOther = getEndPoint(obj->getRect());//test
+		sf::Vector2f endPointOther = getEndPoint(obj->getRect());
 
 		if (intersected(m_line.getPosition(), endPointLine, obj->getRect().getPosition(), endPointOther))//algo from the yechezkel
 		{
@@ -183,17 +179,6 @@ bool Stick::intersected(const sf::Vector2f& p1, const sf::Vector2f& q1, const sf
 	return false; // Doesn't fall in any of the above cases 
 }
 
-
-
-//bool Stick::intersects(const sf::RectangleShape& line, const sf::RectangleShape& other) const
-//{
-//	//algo of the seint yechezkel
-//	/*sf::Vector2f endPointLine = getEndPoint(line);
-//	sf::Vector2f endPointOther = getEndPoint(other);*/
-//
-//	return false;
-//}
-
 sf::Vector2f Stick::getEndPoint(const sf::RectangleShape& obj) const
 {
 	float x = obj.getOrigin().x + obj.getSize().x * std::cos(PI * obj.getRotation() / 180);
@@ -202,11 +187,6 @@ sf::Vector2f Stick::getEndPoint(const sf::RectangleShape& obj) const
 	y += obj.getPosition().y;
 	return sf::Vector2f(x,y);
 }
-
-//bool Stick::intersects(const sf::Vector2f&, const RectangleShape, const sf::Vector2f&, const sf::Vector2f&) const
-//{
-//	return false;
-//}
 
 int Stick::orientation(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Vector2f& r) const
 {
@@ -223,6 +203,8 @@ bool Stick::onSegment(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Ve
 	return (q.x <= std::max(p.x, r.x) && q.x >= std::min(p.x, r.x) &&
 		q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y));
 }
+
+//-------------------------------------------
 
 bool operator==(const Stick& first, const Stick& second)
 {

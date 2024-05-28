@@ -9,21 +9,19 @@ void handleHover(sf::Vector2f v2f, sf::RectangleShape* buttons, int size) //glob
 	{
 		if (buttons[i].getGlobalBounds().contains(v2f))
 		{
-			buttons[i].setScale(1.1f, 1.1f);
+			buttons[i].setScale(1.1, 1.1);
 		}
 		else
 		{
-			buttons[i].setScale(1.0f, 1.0f);
-
+			buttons[i].setScale(1, 1);
 		}
 	}
 }
 
-
 Menu::Menu()
 {
 	m_background.setTexture(Resources::getInstance().getBackground(0));
-	m_background.setSize(sf::Vector2f(900, 600));
+	m_background.setSize(SCREEN_SIZE);
 	m_controller = nullptr;
 
 	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
@@ -31,19 +29,21 @@ Menu::Menu()
 		m_button[i].setSize(sf::Vector2f(300, 120));
 		m_button[i].setOrigin(sf::Vector2f(150, 50));
 		m_button[i].setPosition(sf::Vector2f(450, 120 * (i + 1)));
-		m_button[i].setTexture(Resources::getInstance().getTextureButtons(i));
-		
+		m_button[i].setTexture(Resources::getInstance().getTextureButtons(i));	
 	}
+}
 
-	//m_music.openFromFile("game music.ogg");
-	//m_music.setVolume(MUSIC_VOLUME);
-	//m_music.setLoop(true);
+Menu::~Menu()
+{
+	if (m_controller)
+	{
+		delete m_controller;
+	}
 }
 
 void Menu::showMenu()
 {
-	m_wind.create(sf::VideoMode(900, 600), "sticks");
-	 //מוזיקה אם נרצה
+	m_wind.create(sf::VideoMode(SCREEN_SIZE.x, SCREEN_SIZE.y), "sticks");
 
 	while (m_wind.isOpen())
 	{
@@ -51,10 +51,11 @@ void Menu::showMenu()
 		m_wind.draw(m_background);
 
 		sf::Vector2i mousePos = sf::Mouse::getPosition(m_wind);
-		sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+		sf::Vector2f mousePosF(mousePos.x, mousePos.y);
 
 		handleHover(mousePosF, m_button, NUM_OF_BUTTONS_MENU);
 		drawButtons(m_wind);
+
 		m_wind.display();
 
 		if (auto event = sf::Event(); m_wind.pollEvent(event))
@@ -116,6 +117,7 @@ void Menu::newGame()
 	m_controller = new Controller();
 	m_controller->run(m_wind);
 	delete m_controller;
+	m_controller = nullptr;
 }
 
 void Menu::loadGame()
@@ -125,6 +127,7 @@ void Menu::loadGame()
 		m_controller = new Controller(FILE_NAME);
 		m_controller->run(m_wind);
 		delete m_controller;
+		m_controller = nullptr;
 	}
 	catch (std::exception& exp)
 	{
@@ -149,8 +152,6 @@ void Menu::loadGame()
 				break;
 			}
 		}
-		//sf::sleep(sf::seconds(10));
-		//m_controller = new Controller();
 	}
 }
 
@@ -160,7 +161,9 @@ void Menu::showHelp()
 
 	m_wind.clear();
 	m_background.setTexture(Resources::getInstance().getBackground(1));
+
 	m_wind.draw(m_background);
+	
 	m_background.setTexture(Resources::getInstance().getBackground(0));
 	m_wind.display();
 
@@ -179,19 +182,3 @@ void Menu::showHelp()
 		}
 	}
 }
-
-//void Menu::handleHover(sf::Vector2f v2f, )
-//{
-//	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
-//	{
-//		if (m_button[i].getGlobalBounds().contains(v2f))
-//		{
-//			m_button[i].setScale(1.1f, 1.1f);
-//		}
-//		else
-//		{
-//			m_button[i].setScale(1.0f, 1.0f);
-//
-//		}
-//	}
-//}

@@ -16,12 +16,6 @@ Controller::Controller(std::string fileName): m_board(this, fileName)
 	resetSFMLComponents();
 }
 
-Controller::~Controller()
-{
-	//if (m_board != nullptr)
-	//	delete m_board;
-}
-
 void Controller::run(sf::RenderWindow& m_wind) 
 {
 	while (m_wind.isOpen() && m_timer > 0 && !m_board.finished())
@@ -30,13 +24,12 @@ void Controller::run(sf::RenderWindow& m_wind)
 		m_wind.draw(m_background);
 
 		sf::Vector2i mousePos = sf::Mouse::getPosition(m_wind);
-		sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+		sf::Vector2f mousePosF(mousePos.x, mousePos.y);
 
 		handleHover(mousePosF, m_buttonsGame, NUM_OF_BUTTONS_BOARD);
-		draw_data(m_wind);
-		m_wind.draw(m_boardBackground);
-		//m_wind.display();
+		drawData(m_wind);
 
+		m_wind.draw(m_boardBackground);
 		
 		auto delta_time = m_clock.restart();
 		m_timer -= delta_time.asSeconds();
@@ -50,8 +43,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 
 		if (m_hint)
 		{
-			blink();
-
+			handleHint();
 		}
 		else if (auto event = sf::Event(); m_wind.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
@@ -61,33 +53,31 @@ void Controller::run(sf::RenderWindow& m_wind)
 			}
 			if (event.type == sf::Event::MouseButtonReleased)
 			{
-				bottunPressed(m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y)));
-
-				if (m_boardBackground.getGlobalBounds().contains(mousePosition)) {
+				auto mousePosition = m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+				
+				if (m_boardBackground.getGlobalBounds().contains(mousePosition))
+				{
 					m_board.play(this, mousePosition);
 				}
-				else {
+				else
+				{
 					int option = handleClick(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
 
 					switch (option)
 					{
 					case 0:
 						hint(m_board.getAccessibleBegin(), m_board.getAccessibleEnd());
-						addToScore(-20);
-
+						addToScore(HINT_PRICE);
 						break;
+
 					case 1:
 						saveData();
-						break;
+						return;
 					}
 				}
 			}
 		}
-
 		m_board.draw(m_wind);
-
-		//debug(m_wind);
-
 		m_wind.display();
 	}
 }
@@ -102,7 +92,7 @@ void Controller::hint(const std::multimap<int, Stick*>::iterator& curr,
 	m_glowingCurr->second->glow(true);
 }
 
-void Controller::draw_data(sf::RenderWindow& wind)
+void Controller::drawData(sf::RenderWindow& wind)
 {
 	m_data[0].setString("TIME: " + std::to_string((int)m_timer));
 	m_data[1].setString("ACCESSIBLE: " + std::to_string(m_board.getAccessibleStics()));
@@ -144,10 +134,6 @@ void Controller::resetTimer(float time = 0)
 	}
 }
 
-//void Controller::debug(sf::RenderWindow& m_wind)
-//{
-//	m_board.debug(m_wind);
-//}
 int Controller::handleClick(sf::Vector2f v2f) const
 {
 	for (int i = 0; i < NUM_OF_BUTTONS_MENU; i++)
@@ -172,7 +158,7 @@ void Controller::resetSFMLComponents()
 	}
 
 	m_background.setTexture(Resources::getInstance().getBackground(0));
-	m_background.setSize(sf::Vector2f(900, 600));
+	m_background.setSize(SCREEN_SIZE);
 
 	m_boardBackground.setSize(BOARD_SIZE);
 	m_boardBackground.setPosition(sf::Vector2f(300, 0));
@@ -188,7 +174,7 @@ void Controller::resetSFMLComponents()
 	}
 }
 
-void Controller::blink()
+void Controller::handleHint()
 {
 	sf::sleep(sf::seconds(0.7));
 	(*m_glowingCurr).second->glow(false);
@@ -212,11 +198,4 @@ void Controller::saveData() const
 	m_board.writeSticks(file);
 }
 
-//void Controller::hint()
-//{
-//	for (int i = 0; i < (m_board.getAccessibleStics()); i++)
-//	{
-//
-//	}
-//}
 

@@ -66,7 +66,7 @@ void Board::findAllIntersections()
 	}
 
 	stick = m_sticksList.begin();
-
+	
 	while (stick != m_sticksList.end())
 	{
 		stick = std::find_if(stick, m_sticksList.end(), [](auto stick) {return stick.isAccessible(); });
@@ -92,7 +92,7 @@ void Board::play(Controller* controller, const sf::Vector2f& mousePosition)
 		else
 		{
 			controller->updateBlinking(&(*stick));
-			controller->addToScore(-5);
+			controller->addToScore(WORNG_STICK_FINE);
 		}
 	}
 }
@@ -143,18 +143,6 @@ std::multimap<int, Stick*>::iterator Board::getAccessibleEnd() const
 	return m_accessible.end();
 }
 
-
-//void Board::debug(sf::RenderWindow& m_wind)
-//{
-//	for (auto it = m_accessible.begin(); it != m_accessible.end(); it++)
-//	{
-//		Stick& s = *(it->second);
-//		s.glow(true);
-//		m_wind.draw(s.getRect());
-//	}
-//}
-
-
 int Board::removeAccessible(Stick* stick)
 {
 	int score = 0;
@@ -167,18 +155,6 @@ int Board::removeAccessible(Stick* stick)
 	}
 	return score;
 
-
-	//auto range = m_accessible.equal_range(stick->getScore());
-	//for (auto it = range.first; it != range.second; ++it)
-	//{
-	//	if (it->second == &(*stick))
-	//	{
-	//		std::cout << "erase access start " << m_accessible.size() << '\n';
-	//		m_accessible.erase(it);
-	//		std::cout << "erase access end " << m_accessible.size() << '\n';
-	//		break;
-	//	}
-	//}
 }
 
 
