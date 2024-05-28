@@ -37,5 +37,7 @@ private:
 	void resetSFMLComponents();
 	void handleHint();
 	void saveData() const;
+	//void printMessage(sf::RenderWindow& messageWind, const std::string, int offset = 0) const;
+
 };
 

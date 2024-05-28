@@ -66,7 +66,7 @@ Stick::Stick(std::string line)
 	m_line.setOutlineColor(sf::Color::Black);
 	
 }
-
+	sf::Vector2f endPointLine = getEndPoint(m_line);
 void Stick::findAllIntersections(const std::list<Stick>& list,
 	std::list<Stick>::iterator obj)
 {
@@ -203,6 +203,9 @@ bool Stick::onSegment(const sf::Vector2f& p, const sf::Vector2f& q, const sf::Ve
 	return (q.x <= std::max(p.x, r.x) && q.x >= std::min(p.x, r.x) &&
 		q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y));
 }
+//-------------------------------------------
+
+
 
 //-------------------------------------------
 

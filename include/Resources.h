@@ -25,6 +25,7 @@ const std::pair <sf::Color, int> COLOR_AND_SCORE[NUM_OF_COLORS] = {
 	{sf::Color::Blue, 15}
 };
 
+const sf::Vector2f MESSAGE_SCREEN_SIZE(600, 300);
 const std::string FILE_NAME = "sticks.txt";
 
 const int NUM_OF_BACKGROUNDS = 2;
