@@ -8,6 +8,6 @@ int main()
 	srand(time(NULL));
 	auto menu = Menu();
 	menu.showMenu();
-	
+
 	return 0;
 }
