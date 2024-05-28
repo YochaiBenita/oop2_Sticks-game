@@ -1,25 +1,68 @@
 #include "Board.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "Controller.h"
 #include "InvalidFileException.h"
 #include "InvalidContentFileException.h"
 
 std::multimap<int, Stick*> Board::m_accessible;
 
-Board::Board(Controller* con) : m_controller(con), m_collected(0)
+Board::Board()
 {
 	int x = rand() % 30 + 20;//num of sticks betwean 20-49
+
 	for (int i = 0; i < x; i++) 
 	{
 		m_sticksList.push_front(Stick());
 	}
 
+	findAllIntersections();
+}
+
+Board::Board(Controller* con, const std::string fileName)
+{
+	auto file = std::ifstream(fileName);
+	int temp;
+
+	if (!file.is_open())
+	{
+		throw InvalidFileException();
+	}
+
+	std::string line;
+	std::getline(file, line);
+	std::istringstream iss(line);
+
+	iss >> temp;
+	con->addToScore(temp);
+
+	iss >> temp;
+	con->resetTimer(temp);
+
+	iss >> temp;
+	m_collected = temp;
+
+	while (std::getline(file, line))
+	{
+		m_sticksList.push_back(Stick(line));
+	}
+
+	findAllIntersections();
+}
+
+Board::~Board()
+{
+	m_accessible.clear();
+}
+
+void Board::findAllIntersections()
+{
 	auto stick = m_sticksList.begin();
 
-	for (int i = 0; i < x; i++)
+	for (int i = 0; i < m_sticksList.size(); i++)
 	{
-		stick->findAllIntersections(m_sticksList ,++stick);
+		stick->findAllIntersections(m_sticksList, ++stick);
 	}
 
 	stick = m_sticksList.begin();
@@ -35,37 +78,21 @@ Board::Board(Controller* con) : m_controller(con), m_collected(0)
 	}
 }
 
-Board::Board(Controller* con, const std::string fileName) : m_controller(con), m_collected(0) //לעדכן לפי מה שנקרא בקובץ.
-{
-	auto file = std::ifstream(fileName);
-	if (!file.is_open())
-	{
-		throw InvalidFileException();
-	}
-	//using iss for reading the data
-
-}
-
-Board::~Board()
-{
-	m_accessible.clear();
-}
-
-void Board::play(sf::RenderWindow& m_wind, const sf::Vector2f& mousePosition)
+void Board::play(Controller* controller, const sf::Vector2f& mousePosition)
 {
 	auto stick = std::find_if(m_sticksList.begin(), m_sticksList.end(), [mousePosition](auto stick) {return stick.isPressed(mousePosition); });
 	if (stick != m_sticksList.end()) 
 	{
 		if (stick->handleClick())
 		{
-			removeAccessible(&(*stick));
+			controller->addToScore(removeAccessible(&(*stick)));
 			m_sticksList.remove(*stick);
 			m_collected++;
 		}
 		else
 		{
-			m_controller->updateBlinking(&(*stick));
-			m_controller->addToScore(-5);
+			controller->updateBlinking(&(*stick));
+			controller->addToScore(-5);
 		}
 	}
 }
@@ -123,16 +150,17 @@ std::multimap<int, Stick*>::iterator Board::getAccessibleEnd() const
 //}
 
 
-void Board::removeAccessible(Stick* stick)
+int Board::removeAccessible(Stick* stick)
 {
+	int score = 0;
 	auto it = std::find_if(m_accessible.begin(), m_accessible.end(),
 		[stick](const auto pair) {return pair.second == stick; });
 	if (it != m_accessible.end())
 	{
-		m_controller->addToScore(it->first);
+		score = it->first;
 		it = m_accessible.erase(it);
 	}
-
+	return score;
 
 
 	//auto range = m_accessible.equal_range(stick->getScore());

@@ -102,15 +102,36 @@ void Menu::loadGame()
 {
 	try
 	{
-		m_controller = new Controller("Sticks.txt");
+		m_controller = new Controller(FILE_NAME);
+		m_controller->run(m_wind);
+		delete m_controller;
 	}
 	catch (std::exception& exp)
 	{
-		std::cout << exp.what() << '\n';//לממש עם ספרייט
-		m_controller = new Controller();
+		auto errorWind = sf::RenderWindow(sf::VideoMode(ERROR_SCREEN_SIZE.x, ERROR_SCREEN_SIZE.y), "error");
+		errorWind.draw(m_background);
+		auto massage = sf::Text();
+		massage.setString(exp.what());
+		massage.setFont(*Resources::getInstance().getFont());
+		massage.setOrigin(sf::Vector2f(massage.getGlobalBounds().width / 2, massage.getGlobalBounds().height / 2));
+		massage.setPosition(sf::Vector2f(ERROR_SCREEN_SIZE.x / 2, ERROR_SCREEN_SIZE.y / 2));
+
+		
+		errorWind.draw(massage);
+		errorWind.display();
+
+		auto event = sf::Event();
+		while (errorWind.waitEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				errorWind.close();
+				break;
+			}
+		}
+		//sf::sleep(sf::seconds(10));
+		//m_controller = new Controller();
 	}
-	m_controller->run(m_wind);
-	delete m_controller;
 }
 
 void Menu::showHelp()

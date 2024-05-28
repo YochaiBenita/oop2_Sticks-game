@@ -5,9 +5,9 @@ Resources::Resources()
 	//texures
 	//readData(m_texures, m_FileNames, NUM_OF_TEXTURES);
 	//readData(m_dataTexures, m_dataTexturesNames, NUM_OF_DATA_TEXTURES);
-	readData(m_backgroungs, m_backgroundsNames, NUM_OF_BACKGROUNDS);
-	readData(m_buttonsTexures, m_buttonMenu, NUM_OF_BUTTONS_MENU);
-	readData(m_buttonsBoardTexures, m_buttonBoard, NUM_OF_BUTTONS_BOARD);
+	readData(m_backgroungs, BACKGROUNDS_FILE_NAMES, NUM_OF_BACKGROUNDS);
+	readData(m_buttonsTexures, BOTTUNS_FILE_NAMES, NUM_OF_BUTTONS_MENU);
+	readData(m_buttonsBoardTexures, BOTTUNS_BOARD_FILE_NAMES, NUM_OF_BUTTONS_BOARD);
 
 	//readData(m_messagesTexures, m_messages, NUM_OF_MESSAGES);
 
@@ -21,7 +21,7 @@ Resources::Resources()
 	}*/
 
 	//font
-	m_font.loadFromFile(m_fontName);
+	m_font.loadFromFile(FONT_FILE_NAME);
 
 }
 
@@ -61,7 +61,7 @@ const sf::Font* Resources::getFont() const
 	return &m_font;
 }
 
-void Resources::readData(sf::Texture arr[], std::string names[], int num_of_objects)
+void Resources::readData(sf::Texture arr[], const std::string names[], int num_of_objects)
 {
 	for (int i = 0; i < num_of_objects; i++)
 		{

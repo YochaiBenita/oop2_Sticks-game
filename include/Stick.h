@@ -7,9 +7,10 @@
 const int WIDTH = 20;
 const int MIN_LEN = 150;
 const int BORDER = 20;
+const int NUM_OF_COLORS = 3;
 const long double PI = 3.14159265358979323846;
 
-const std::pair <sf::Color, int> COLOR_AND_SCORE[] = {
+const std::pair <sf::Color, int> COLOR_AND_SCORE[NUM_OF_COLORS] = {
 	{sf::Color::Red, 20},
 	{sf::Color::Color(50,160,70), 10},
 	{sf::Color::Blue, 15}
@@ -19,6 +20,7 @@ class Stick
 {
 public:
 	Stick();
+	Stick(std::string);
 	//void findAllIntersections(const std::list<Stick*>& list);
 	void findAllIntersections(const std::list<Stick>&, std::list<Stick>::iterator);
 	bool isAccessible() const;

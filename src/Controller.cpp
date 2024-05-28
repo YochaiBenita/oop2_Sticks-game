@@ -3,8 +3,9 @@
 #include <string>
 #include "Menu.h"
 
-Controller::Controller() : m_board(this)
+Controller::Controller() : m_board()
 {
+	resetTimer(0);
 	resetSFMLComponents();
 }
 
@@ -55,7 +56,7 @@ void Controller::run(sf::RenderWindow& m_wind)
 				auto mousePosition = m_wind.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 
 				if (m_boardBackground.getGlobalBounds().contains(mousePosition)) {
-					m_board.play(m_wind, mousePosition);
+					m_board.play(this, mousePosition);
 				}
 				else {
 					int option = handleClick(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
@@ -122,6 +123,18 @@ void Controller::updateBlinking(Stick* obj)
 {
 	m_blinking = true;
 	m_blockedAndPressed = obj;
+}
+
+void Controller::resetTimer(float time = 0)
+{
+	if (time != 0) 
+	{
+		m_timer = time;
+	}
+	else
+	{
+		m_timer = m_board.getAccessibleStics() * 2;
+	}
 }
 
 //void Controller::debug(sf::RenderWindow& m_wind)

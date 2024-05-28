@@ -16,6 +16,7 @@ public:
 	void hint(const std::multimap<int, Stick*>::iterator&, const std::multimap<int, Stick*>::iterator&);
 	void addToScore(int);
 	void updateBlinking(Stick*);
+	void resetTimer(float);
 	//void debug(sf::RenderWindow&);
 
 private:

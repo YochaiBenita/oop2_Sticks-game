@@ -10,11 +10,11 @@ class Controller;
 class Board
 {
 public:
-	Board(Controller*);
+	Board();
 	Board(Controller* , const std::string);
 	~Board();
-	bool intersect();
-	void play(sf::RenderWindow&, const sf::Vector2f&);
+	void findAllIntersections();
+	void play(Controller*, const sf::Vector2f&);
 	//bool to_exit();
 	void draw(sf::RenderWindow&)const;
 	bool finished()const;
@@ -32,7 +32,6 @@ private:
 	std::list<Stick> m_sticksList;
 	static std::multimap<int, Stick*> m_accessible;
 	int m_collected = 0;
-	Controller* m_controller;
 
-	void removeAccessible(Stick*);
+	int removeAccessible(Stick*);
 };

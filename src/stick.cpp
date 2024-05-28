@@ -3,7 +3,9 @@
 #include <algorithm> 
 #include "Controller.h"
 #include <iostream>
+#include <sstream>
 #include "Board.h"
+#include "InvalidContentFileException.h"
 
 Stick::Stick() //:m_line()
 {
@@ -30,8 +32,37 @@ Stick::Stick() //:m_line()
 	y = (rand() % (int(BOARD_SIZE.y) - 2 * BORDER)) + BORDER;
 	m_line.setPosition(sf::Vector2f(x, y));
 
+}
 
+Stick::Stick(std::string line)
+{
+	std::istringstream iss(line);
+	int score, len, rotation, position_x, position_y;
+	iss >> score >> len >> rotation >> position_x >> position_y;
 
+	if (!((score == 10 || score == 15 || score == 20) &&
+		(len >= MIN_LEN && len <= MIN_LEN + 50) &&
+		(rotation >= -89 && rotation <= 89) &&
+		(position_x - BORDER - 300 >= 0 && position_x + BORDER + 300 <= 900) &&
+		(position_y - BORDER >= 0 && position_y + BORDER <= 600)))
+	{
+		throw InvalidContentFileException();
+	}
+
+	m_score = score;
+
+	for (int i = 0; i < NUM_OF_COLORS; i++) {
+		if (COLOR_AND_SCORE[i].second == score) {
+			m_line.setFillColor(COLOR_AND_SCORE[i].first);
+		}
+	}
+
+	m_line.setSize(sf::Vector2f(len, WIDTH));
+	m_line.setRotation(rotation);
+	m_line.setPosition(sf::Vector2f(position_x, position_y));
+	m_line.setOutlineThickness(3);
+	m_line.setOutlineColor(sf::Color::Black);
+	
 }
 
 void Stick::findAllIntersections(const std::list<Stick>& list,
