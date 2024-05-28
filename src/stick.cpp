@@ -7,7 +7,7 @@
 #include "Board.h"
 #include "InvalidContentFileException.h"
 
-Stick::Stick() //:m_line()
+Stick::Stick()
 {
 	int x;
 	x = rand() % 3;
@@ -59,6 +59,7 @@ Stick::Stick(std::string line)
 		}
 	}
 
+	m_line.setOrigin(sf::Vector2f(0, WIDTH / 2));
 	m_line.setSize(sf::Vector2f(len, WIDTH));
 	m_line.setRotation(rotation);
 	m_line.setPosition(sf::Vector2f(position_x, position_y));
