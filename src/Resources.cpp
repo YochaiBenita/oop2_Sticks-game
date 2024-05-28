@@ -3,22 +3,9 @@
 Resources::Resources()
 {
 	//texures
-	//readData(m_texures, m_FileNames, NUM_OF_TEXTURES);
-	//readData(m_dataTexures, m_dataTexturesNames, NUM_OF_DATA_TEXTURES);
 	readData(m_backgroungs, BACKGROUNDS_FILE_NAMES, NUM_OF_BACKGROUNDS);
 	readData(m_buttonsTexures, BOTTUNS_FILE_NAMES, NUM_OF_BUTTONS_MENU);
 	readData(m_buttonsBoardTexures, BOTTUNS_BOARD_FILE_NAMES, NUM_OF_BUTTONS_BOARD);
-
-	//readData(m_messagesTexures, m_messages, NUM_OF_MESSAGES);
-
-	/*m_backgroungs[2].setRepeated(true);
-	m_backgroungs[3].setRepeated(true);*/
-
-	//sounds
-	/*for (int i = 0; i < NUM_OF_SOUNDES; i++)
-	{
-		m_sound_buffer[i].loadFromFile(m_SoundNames[i]);
-	}*/
 
 	//font
 	m_font.loadFromFile(FONT_FILE_NAME);
@@ -30,16 +17,6 @@ Resources& Resources::getInstance()
 	static Resources instance;
 	return instance;
 }
-
-//const sf::Texture* Resources::getTextureMs(int index) const
-//{
-//	return &(m_messagesTexures[index]);
-//}
-//
-//const sf::Texture* Resources::getDataTexure(int index) const
-//{
-//	return &(m_dataTexures[index]);
-//}
 
 const sf::Texture* Resources::getBackground(int index) const
 {

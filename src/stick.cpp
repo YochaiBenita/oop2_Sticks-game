@@ -66,7 +66,7 @@ Stick::Stick(std::string line)
 	m_line.setOutlineColor(sf::Color::Black);
 	
 }
-	sf::Vector2f endPointLine = getEndPoint(m_line);
+
 void Stick::findAllIntersections(const std::list<Stick>& list,
 	std::list<Stick>::iterator obj)
 {
