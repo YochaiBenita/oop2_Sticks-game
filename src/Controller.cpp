@@ -139,7 +139,7 @@ void Controller::resetTimer(float time = 0)
 	}
 	else
 	{
-		m_timer = m_board.getAccessibleStics() * 2;
+		m_timer = m_board.getRemainedSticks() * 2;
 	}
 }
 
