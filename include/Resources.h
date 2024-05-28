@@ -5,8 +5,7 @@
 //const int NUM_OF_MESSAGES = 4; //win, loss, 2 exceptions
 //const int NUM_OF_DATA_TEXTURES = 2; //for time and score
 
-const sf::Vector2f ERROR_SCREEN_SIZE(400, 200);
-
+const sf::Vector2f MESSAGE_SCREEN_SIZE(600, 300);
 const std::string FILE_NAME = "sticks.txt";
 
 const int NUM_OF_BACKGROUNDS = 2;

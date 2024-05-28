@@ -5,6 +5,7 @@
 
 
 void handleHover(sf::Vector2f, sf::RectangleShape*, int);
+void printMessage(const std::vector<std::string>);
 
 class Menu {
 public:

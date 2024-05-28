@@ -42,6 +42,8 @@ private:
 	void resetSFMLComponents();
 	void blink();
 	void saveData() const;
+	//void printMessage(sf::RenderWindow& messageWind, const std::string, int offset = 0) const;
+
 };
 
 

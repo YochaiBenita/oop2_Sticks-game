@@ -74,7 +74,6 @@ void Controller::run(sf::RenderWindow& m_wind)
 					case 0:
 						hint(m_board.getAccessibleBegin(), m_board.getAccessibleEnd());
 						addToScore(-20);
-
 						break;
 					case 1:
 						saveData();
@@ -89,6 +88,17 @@ void Controller::run(sf::RenderWindow& m_wind)
 		//debug(m_wind);
 
 		m_wind.display();
+	}
+
+	if (m_board.finished() && m_score > 0)//win
+	{
+		printMessage(std::vector<std::string>{"YOU WON THE GAME!", "SCORE: " + std::to_string(m_score)});
+	}
+	else if (m_timer <= 0 || m_board.getRemainedSticks()==0 && m_score <= 0)//lose
+	{
+		printMessage(std::vector<std::string>{"YOU LOST THE GAME!", "SCORE: " + std::to_string(m_score)});
+
+		
 	}
 }
 
@@ -211,6 +221,30 @@ void Controller::saveData() const
 	
 	m_board.writeSticks(file);
 }
+
+//void Controller::printMessage(sf::RenderWindow& messageWind, const std::string mes, int offset) const
+//{
+//	//auto messageWind = sf::RenderWindow(sf::VideoMode(MESSAGE_SCREEN_SIZE.x, MESSAGE_SCREEN_SIZE.y), "message");
+//	//messageWind.draw(m_background);
+//	auto message = sf::Text();
+//	message.setString(mes);
+//	message.setFont(*Resources::getInstance().getFont());
+//	message.setCharacterSize(FONT_SIZE_MESSAGE);
+//	message.setOrigin(sf::Vector2f(message.getGlobalBounds().width / 2, message.getGlobalBounds().height / 2));
+//	message.setPosition(sf::Vector2f(MESSAGE_SCREEN_SIZE.x / 2, MESSAGE_SCREEN_SIZE.y / 2 + offset));
+//	messageWind.draw(message);
+//	//messageWind.display();
+//
+//	/*auto event = sf::Event();
+//	while (messageWind.waitEvent(event))
+//	{
+//		if (event.type == sf::Event::Closed)
+//		{
+//			messageWind.close();
+//			break;
+//		}
+//	}*/
+//}
 
 //void Controller::hint()
 //{
