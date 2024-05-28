@@ -28,7 +28,7 @@ Stick::Stick()
 
 	int y;
 
-	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + 300;
+	x = (rand() % (int(BOARD_SIZE.x) - 2 * BORDER)) + 300 +BORDER;
 	y = (rand() % (int(BOARD_SIZE.y) - 2 * BORDER)) + BORDER;
 	m_line.setPosition(sf::Vector2f(x, y));
 
@@ -39,7 +39,7 @@ Stick::Stick(std::string line)
 	std::istringstream iss(line);
 	int score, len, rotation, position_x, position_y;
 	iss >> score >> len >> rotation >> position_x >> position_y;
-
+	std::cout << "s\n";
 	if (!((score == 10 || score == 15 || score == 20) &&
 		(len >= MIN_LEN && len <= MIN_LEN + 50) &&
 		((rotation % 90 != 0) || (rotation % 180 == 0)) &&
@@ -48,6 +48,8 @@ Stick::Stick(std::string line)
 	{
 		throw InvalidContentFileException();
 	}
+	std::cout << "f\n";
+
 
 	m_score = score;
 
