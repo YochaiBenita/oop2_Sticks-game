@@ -30,7 +30,7 @@ public:
 
 private:
 	std::list<Stick> m_sticksList;
-	static std::multimap<int, Stick*> m_accessible;
+	static std::multimap<int, Stick* ,std::greater<int> > m_accessible;
 	int m_collected = 0;
 
 	int removeAccessible(Stick*);

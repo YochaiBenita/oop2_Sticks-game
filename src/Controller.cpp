@@ -27,8 +27,14 @@ void Controller::run(sf::RenderWindow& m_wind)
 		m_wind.clear(sf::Color::White);
 		m_wind.draw(m_background);
 
+		sf::Vector2i mousePos = sf::Mouse::getPosition(m_wind);
+		sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+		handleHover(mousePosF, m_buttonsGame, NUM_OF_BUTTONS_BOARD);
 		draw_data(m_wind);
 		m_wind.draw(m_boardBackground);
+		//m_wind.display();
+
 		
 		auto delta_time = m_clock.restart();
 		m_timer -= delta_time.asSeconds();
