@@ -128,6 +128,11 @@ int Board::getAccessibleStics() const
 	return m_accessible.size();
 }
 
+void Board::writeSticks(std::ofstream& file) const
+{
+	std::for_each(m_sticksList.begin(), m_sticksList.end(), [&file](auto stick) {file << stick << '\n'; });
+}
+
 std::multimap<int, Stick*>::iterator Board::getAccessibleBegin() const
 {
 	return m_accessible.begin();
