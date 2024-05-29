@@ -39,13 +39,16 @@ Stick::Stick(std::string line)
 	std::istringstream iss(line);
 	int score, len, rotation, position_x, position_y;
 
-	iss >> score >> len >> rotation >> position_x >> position_y;
+	if (!((iss >> score) && (iss >> len) && (iss >> rotation) && (iss >> position_x) && (iss >> position_y)))
+	{
+		throw InvalidContentFileException();
+	}
 	
 	if (!((score == 10 || score == 15 || score == 20) &&
 		(len >= MIN_LEN && len <= MIN_LEN + 50) &&
 		((rotation % 90 != 0) || (rotation % 180 == 0)) &&
-		(position_x - BORDER - 300 >= 0 && position_x + BORDER - 300 <= 900) &&
-		(position_y - BORDER >= 0 && position_y + BORDER <= 600)))
+		(position_x - BORDER - (SCREEN_SIZE.x -BOARD_SIZE.x) >= 0 && position_x + BORDER - (SCREEN_SIZE.x - BOARD_SIZE.x) <= BOARD_SIZE.x) &&
+		(position_y - BORDER >= 0 && position_y + BORDER <= BOARD_SIZE.y)))
 	{
 		throw InvalidContentFileException();
 	}

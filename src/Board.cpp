@@ -23,7 +23,6 @@ Board::Board()
 Board::Board(Controller* con, const std::string fileName)
 {
 	auto file = std::ifstream(fileName);
-	int temp;
 
 	if (!file.is_open())
 	{
@@ -34,14 +33,18 @@ Board::Board(Controller* con, const std::string fileName)
 	std::getline(file, line);
 	std::istringstream iss(line);
 
-	iss >> temp;
-	con->addToScore(temp);
+	int score, time, collected;
 
-	iss >> temp;
-	con->resetTimer(temp);
-
-	iss >> temp;
-	m_collected = temp;
+	if ((iss >> score) && (iss >> time) && (iss >> collected))
+	{
+		con->addToScore(score);
+		con->resetTimer(time);
+		m_collected = collected;
+	}
+	else
+	{
+		throw InvalidContentFileException();
+	}
 
 	while (std::getline(file, line))
 	{

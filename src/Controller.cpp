@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include <fstream>
 #include <sstream>
+#include "Utilities.h"
 
 Controller::Controller() : m_board()
 {

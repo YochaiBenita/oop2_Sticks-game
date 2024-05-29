@@ -2,10 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Resources.h"
 #include "Controller.h"
-
-
-void handleHover(sf::Vector2f, sf::RectangleShape*, int);
-void printMessage(const std::vector<std::string>);
+#include "Utilities.h"
 
 class Menu {
 public:
