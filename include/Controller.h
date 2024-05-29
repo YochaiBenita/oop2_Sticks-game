@@ -9,7 +9,6 @@ public:
 	Controller();
 	Controller(std::string);
 	void run(sf::RenderWindow&);
-	void hint(const std::multimap<int, Stick*>::iterator&, const std::multimap<int, Stick*>::iterator&);
 	void addToScore(int);
 	void updateBlinking(Stick*);
 	void resetTimer(float);
@@ -37,7 +36,7 @@ private:
 	void resetSFMLComponents();
 	void handleHint();
 	void saveData() const;
-	//void printMessage(sf::RenderWindow& messageWind, const std::string, int offset = 0) const;
+	void hint(const std::multimap<int, Stick*>::iterator&, const std::multimap<int, Stick*>::iterator&);
 
 };
 
